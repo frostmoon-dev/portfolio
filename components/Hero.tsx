@@ -224,11 +224,12 @@ export const Hero = () => {
         {/* Name */}
         <motion.h2
           variants={childVariants}
-          style={{ x: parallaxX_heavy, y: parallaxY_heavy }}
-          className="text-4xl md:text-5xl text-[#6b7a63] mb-4 tracking-wide"
-          style={{
+          style={{ 
+            x: parallaxX_heavy, 
+            y: parallaxY_heavy,
             fontFamily: "'Biro Script reduced Regular', cursive"
           }}
+          className="text-4xl md:text-5xl text-[#6b7a63] mb-4 tracking-wide"
         >
           Nurfatihah Muhammad
         </motion.h2>
@@ -250,11 +251,12 @@ export const Hero = () => {
           variants={headlineContainerVariants}
           initial="hidden"
           animate="visible"
-          style={{ x: parallaxX_heavy, y: parallaxY_heavy }}
-          className="text-5xl md:text-7xl text-[#4a5a43] leading-tight mb-8 font-light"
-          style={{
+          style={{ 
+            x: parallaxX_heavy, 
+            y: parallaxY_heavy,
             fontFamily: "'Lock Serif Light', serif"
           }}
+          className="text-5xl md:text-7xl text-[#4a5a43] leading-tight mb-8 font-light"
         >
           {title.split(" ").map((word, index) => (
             <motion.span
@@ -270,11 +272,12 @@ export const Hero = () => {
         {/* Skillset */}
         <motion.p
           variants={childVariants}
-          style={{ x: parallaxX_light, y: parallaxY_light }}
-          className="text-lg text-[#6b7a63] max-w-2xl leading-relaxed mb-12"
-          style={{
+          style={{ 
+            x: parallaxX_light, 
+            y: parallaxY_light,
             fontFamily: "'Fragment Mono', monospace"
           }}
+          className="text-lg text-[#6b7a63] max-w-2xl leading-relaxed mb-12"
         >
           Software Developer specializing in D365 F&O (X++) and Business Central,
           fused with expertise in building performant web applications using React,
