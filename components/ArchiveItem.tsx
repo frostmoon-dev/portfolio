@@ -19,7 +19,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as const, // ← Add 'as const' here!
     },
   },
 };
@@ -116,6 +116,7 @@ export const ArchiveItem = ({ title, imageUrl, id }: ArchiveItemProps) => {
         className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent"
         initial={{ x: "-100%", y: "-100%" }}
         whileHover={{ x: "100%", y: "100%" }}
+        
         transition={{ duration: 0.8, ease: "easeInOut" }}
       />
     </motion.div>
