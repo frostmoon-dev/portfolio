@@ -1,14 +1,9 @@
 // File: components/Hero.tsx
-// Mission: Sage green decorated hero with layered parallax
+// Mission: Sage green decorated hero with cute minimalistic touches
 
 "use client";
 
-import {
-  motion,
-  Variants,
-  useMotionValue,
-  useTransform,
-} from "framer-motion";
+import { motion, Variants, useMotionValue, useTransform } from "framer-motion";
 import { useState, useEffect } from "react";
 
 const containerVariants: Variants = {
@@ -132,7 +127,7 @@ export const Hero = () => {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#f8f9f5]">
       {/* Decorative Background Elements */}
-      
+
       {/* Large organic blob - top right */}
       <motion.div
         style={{ x: parallaxX_verylight, y: parallaxY_verylight }}
@@ -208,6 +203,33 @@ export const Hero = () => {
         }}
       />
 
+      {/* Cute floating mini elements */}
+      <motion.div
+        className="absolute top-1/3 left-1/6 w-2 h-2 rounded-full bg-[#a8b5a0]/40"
+        animate={{
+          y: [0, -20, 0],
+          opacity: [0.3, 0.6, 0.3],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute top-2/3 right-1/5 w-3 h-3 rounded-full bg-[#c5d4bc]/30"
+        animate={{
+          y: [0, -15, 0],
+          opacity: [0.4, 0.7, 0.4],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
+      />
+
       {/* Main Content */}
       <motion.section
         variants={containerVariants}
@@ -215,33 +237,51 @@ export const Hero = () => {
         animate="visible"
         className="relative z-10 pt-40 pb-20 max-w-4xl mx-auto px-6 text-center flex flex-col items-center"
       >
-        {/* Decorative line above name */}
+        {/* Decorative line above name with dots */}
         <motion.div
           variants={childVariants}
-          className="w-12 h-[2px] bg-gradient-to-r from-transparent via-[#8a9a7e] to-transparent mb-8"
-        />
+          className="flex items-center gap-2 mb-8"
+        >
+          <motion.div 
+            className="w-1.5 h-1.5 rounded-full bg-[#8a9a7e]"
+            animate={{ scale: [1, 1.3, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <div className="w-12 h-[2px] bg-gradient-to-r from-[#8a9a7e] to-transparent" />
+          <motion.div 
+            className="w-1.5 h-1.5 rounded-full bg-[#a8b5a0]"
+            animate={{ scale: [1, 1.3, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          />
+        </motion.div>
 
         {/* Name */}
         <motion.h2
           variants={childVariants}
-          style={{ 
-            x: parallaxX_heavy, 
+          style={{
+            x: parallaxX_heavy,
             y: parallaxY_heavy,
-            fontFamily: "'Biro Script reduced Regular', cursive"
+            fontFamily: "'Biro Script reduced Regular', cursive",
           }}
           className="text-4xl md:text-5xl text-[#6b7a63] mb-4 tracking-wide"
         >
           Nurfatihah Muhammad
         </motion.h2>
 
-        {/* Small accent */}
+        {/* Small accent with minimal symbol */}
         <motion.div
           variants={childVariants}
           className="flex items-center gap-2 mb-6"
         >
           <div className="w-8 h-[1px] bg-[#a8b5a0]" />
-          <span className="text-sm text-[#8a9a7e] font-light tracking-widest">
-            霜月 FROSTMOON
+          <span className="text-sm text-[#8a9a7e] font-light tracking-widest flex items-center gap-1">
+            <motion.span
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
+              ✦
+            </motion.span>
+            FROSTMOON
           </span>
           <div className="w-8 h-[1px] bg-[#a8b5a0]" />
         </motion.div>
@@ -251,12 +291,9 @@ export const Hero = () => {
           variants={headlineContainerVariants}
           initial="hidden"
           animate="visible"
-          style={{ 
-            x: parallaxX_heavy, 
-            y: parallaxY_heavy,
-            fontFamily: "'Lock Serif Light', serif"
-          }}
+          suppressHydrationWarning
           className="text-5xl md:text-7xl text-[#4a5a43] leading-tight mb-8 font-light"
+          style={{ fontFamily: "'Lock Serif Light', serif" }}
         >
           {title.split(" ").map((word, index) => (
             <motion.span
@@ -272,36 +309,61 @@ export const Hero = () => {
         {/* Skillset */}
         <motion.p
           variants={childVariants}
-          style={{ 
-            x: parallaxX_light, 
+          style={{
+            x: parallaxX_light,
             y: parallaxY_light,
-            fontFamily: "'Fragment Mono', monospace"
+            fontFamily: "'Fragment Mono', monospace",
           }}
           className="text-lg text-[#6b7a63] max-w-2xl leading-relaxed mb-12"
         >
-          Software Developer specializing in D365 F&O (X++) and Business Central,
-          fused with expertise in building performant web applications using React,
-          Next.js, and Figma.
+          Software Developer specializing in D365 F&O (X++) and Business
+          Central, fused with expertise in building performant web applications
+          using React, Next.js, and Figma.
         </motion.p>
 
-        {/* CTA Button */}
+        {/* CTA Button with subtle detail */}
         <motion.a
           href="#work"
           variants={childVariants}
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.05, y: -2 }}
           whileTap={{ scale: 0.95 }}
-          className="px-8 py-4 bg-[#8a9a7e] text-white rounded-full font-medium tracking-wide hover:bg-[#6b7a63] transition-colors duration-300 shadow-lg shadow-[#8a9a7e]/20"
+          className="px-8 py-4 bg-[#8a9a7e] text-white rounded-full font-medium tracking-wide hover:bg-[#6b7a63] transition-colors duration-300 shadow-lg shadow-[#8a9a7e]/20 relative overflow-hidden group flex items-center gap-2"
         >
-          View My Work
+          <span>View My Work</span>
+          <motion.span
+            className="text-xs"
+            animate={{ x: [0, 3, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            →
+          </motion.span>
+          {/* Shimmer effect */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+            animate={{ x: ["-100%", "100%"] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", repeatDelay: 1 }}
+          />
         </motion.a>
 
-        {/* Scroll indicator */}
+        {/* Scroll indicator with cute touch */}
         <motion.div
           variants={childVariants}
           className="mt-20 flex flex-col items-center gap-2"
         >
-          <span className="text-xs text-[#a8b5a0] tracking-widest uppercase">
+          <span className="text-xs text-[#a8b5a0] tracking-widest uppercase flex items-center gap-2">
+            <motion.span
+              animate={{ opacity: [0.3, 1, 0.3] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              ·
+            </motion.span>
             Scroll
+            <motion.span
+              animate={{ opacity: [0.3, 1, 0.3] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            >
+              ·
+            </motion.span>
           </span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
@@ -315,11 +377,25 @@ export const Hero = () => {
         </motion.div>
       </motion.section>
 
-      {/* Bottom decorative accent */}
-      <motion.div
-        style={{ x: parallaxX_verylight }}
-        className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#a8b5a0]/30 to-transparent"
-      />
+      {/* Bottom decorative accent with dots */}
+      <motion.div className="absolute bottom-0 left-0 right-0 flex items-center justify-center">
+        <motion.div
+          style={{ x: parallaxX_verylight }}
+          className="flex items-center gap-4"
+        >
+          <motion.div 
+            className="w-1 h-1 rounded-full bg-[#a8b5a0]/50"
+            animate={{ scale: [1, 1.5, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-[#a8b5a0]/30 to-transparent" />
+          <motion.div 
+            className="w-1 h-1 rounded-full bg-[#a8b5a0]/50"
+            animate={{ scale: [1, 1.5, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          />
+        </motion.div>
+      </motion.div>
     </div>
   );
 };

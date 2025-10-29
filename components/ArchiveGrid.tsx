@@ -1,5 +1,5 @@
 // File: components/ArchiveGrid.tsx
-// Mission: Refined archive section with elegant grid layout
+// Mission: Refined archive section with cute minimalistic touches
 
 "use client";
 
@@ -39,6 +39,46 @@ export const ArchiveGrid = () => {
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-white rounded-full blur-3xl" />
       </div>
 
+      {/* Floating decorative dots */}
+      <motion.div
+        className="absolute top-32 left-20 w-2 h-2 rounded-full bg-[#c5d4bc]/30"
+        animate={{
+          y: [0, -15, 0],
+          opacity: [0.3, 0.6, 0.3],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute top-48 right-32 w-3 h-3 rounded-full bg-[#a8b5a0]/20"
+        animate={{
+          y: [0, -20, 0],
+          opacity: [0.2, 0.5, 0.2],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
+      />
+      <motion.div
+        className="absolute bottom-40 left-1/3 w-2 h-2 rounded-full bg-[#e8ede5]/20"
+        animate={{
+          y: [0, -12, 0],
+          opacity: [0.3, 0.7, 0.3],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
+      />
+
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -56,16 +96,42 @@ export const ArchiveGrid = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
             />
-            <span className="text-sm text-[#c5d4bc] tracking-[0.3em] uppercase font-medium">
+            <span className="text-sm text-[#c5d4bc] tracking-[0.3em] uppercase font-medium flex items-center gap-2">
+              <motion.span
+                animate={{ opacity: [0.3, 1, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                ·
+              </motion.span>
               Creative Vault
+              <motion.span
+                animate={{ opacity: [0.3, 1, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              >
+                ·
+              </motion.span>
             </span>
           </div>
 
           <h2 
-            className="text-5xl md:text-6xl mb-5 font-light text-[#f8f9f5]"
+            className="text-5xl md:text-6xl mb-5 font-light text-[#f8f9f5] flex items-center gap-3"
             style={{ fontFamily: "'Lock Serif Light', serif" }}
           >
             Archive
+            <motion.span
+              className="text-2xl text-[#c5d4bc]"
+              animate={{ 
+                rotate: [0, 15, 0],
+                scale: [1, 1.2, 1]
+              }}
+              transition={{ 
+                duration: 3, 
+                repeat: Infinity, 
+                ease: "easeInOut" 
+              }}
+            >
+              ✦
+            </motion.span>
           </h2>
           
           <p 
@@ -90,14 +156,43 @@ export const ArchiveGrid = () => {
           ))}
         </motion.div>
 
-        {/* Bottom decorative line */}
+        {/* Bottom decorative element */}
         <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="mt-16 h-[1px] bg-gradient-to-r from-transparent via-[#a8b5a0]/30 to-transparent"
-        />
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-16 flex items-center justify-center"
+        >
+          <div className="flex items-center gap-3">
+            <motion.div 
+              className="w-1.5 h-1.5 rounded-full bg-[#c5d4bc]"
+              animate={{ 
+                opacity: [0.3, 1, 0.3],
+                scale: [1, 1.3, 1]
+              }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <div className="h-[1px] w-20 bg-gradient-to-r from-transparent via-[#a8b5a0]/30 to-transparent" />
+            <motion.div 
+              className="w-1.5 h-1.5 rounded-full bg-[#a8b5a0]"
+              animate={{ 
+                opacity: [0.3, 1, 0.3],
+                scale: [1, 1.3, 1]
+              }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            />
+            <div className="h-[1px] w-20 bg-gradient-to-r from-transparent via-[#a8b5a0]/30 to-transparent" />
+            <motion.div 
+              className="w-1.5 h-1.5 rounded-full bg-[#8a9a7e]"
+              animate={{ 
+                opacity: [0.3, 1, 0.3],
+                scale: [1, 1.3, 1]
+              }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            />
+          </div>
+        </motion.div>
       </div>
     </section>
   );

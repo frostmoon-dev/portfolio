@@ -1,5 +1,5 @@
 // File: components/ProjectGrid.tsx
-// Mission: Elegant project showcase with staggered animations
+// Mission: Elegant project showcase with cute minimalistic touches
 
 "use client";
 
@@ -56,6 +56,33 @@ export const ProjectGrid = () => {
         <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-[#a8b5a0] rounded-full blur-3xl" />
       </div>
 
+      {/* Floating decorative elements */}
+      <motion.div
+        className="absolute top-20 left-10 w-2 h-2 rounded-full bg-[#a8b5a0]/30"
+        animate={{
+          y: [0, -20, 0],
+          opacity: [0.3, 0.6, 0.3],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute top-40 right-20 w-3 h-3 rounded-full bg-[#c5d4bc]/40"
+        animate={{
+          y: [0, -15, 0],
+          opacity: [0.4, 0.7, 0.4],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
+      />
+
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -74,18 +101,37 @@ export const ProjectGrid = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
             />
             <span 
-              className="text-sm text-[#8a9a7e] tracking-[0.3em] uppercase font-medium"
+              className="text-sm text-[#8a9a7e] tracking-[0.3em] uppercase font-medium flex items-center gap-2"
               style={{ fontFamily: "'Fragment Mono', monospace" }}
             >
+              <motion.span
+                animate={{ opacity: [0.3, 1, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                ·
+              </motion.span>
               Featured Work
+              <motion.span
+                animate={{ opacity: [0.3, 1, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              >
+                ·
+              </motion.span>
             </span>
           </div>
           
           <h2 
-            className="text-5xl md:text-6xl text-[#4a5a43] mb-5 font-light"
+            className="text-5xl md:text-6xl text-[#4a5a43] mb-5 font-light flex items-center gap-3"
             style={{ fontFamily: "'Lock Serif Light', serif" }}
           >
             Selected Projects
+            <motion.span
+              className="text-2xl text-[#a8b5a0]"
+              animate={{ rotate: [0, 10, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
+              ✦
+            </motion.span>
           </h2>
           
           <p 
@@ -110,28 +156,39 @@ export const ProjectGrid = () => {
           ))}
         </motion.div>
 
-        {/* Bottom decorative element */}
+        {/* Bottom decorative element with animated dots */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-20 flex justify-center"
+          className="mt-20 flex justify-center items-center"
         >
           <div className="flex items-center gap-3">
             <motion.div 
               className="w-2 h-2 rounded-full bg-[#8a9a7e]"
-              animate={{ opacity: [0.3, 1, 0.3] }}
+              animate={{ 
+                opacity: [0.3, 1, 0.3],
+                scale: [1, 1.2, 1]
+              }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             />
+            <div className="h-[1px] w-16 bg-gradient-to-r from-[#8a9a7e] via-[#a8b5a0] to-[#c5d4bc]" />
             <motion.div 
               className="w-2 h-2 rounded-full bg-[#a8b5a0]"
-              animate={{ opacity: [0.3, 1, 0.3] }}
+              animate={{ 
+                opacity: [0.3, 1, 0.3],
+                scale: [1, 1.2, 1]
+              }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
             />
+            <div className="h-[1px] w-16 bg-gradient-to-r from-[#c5d4bc] via-[#a8b5a0] to-[#8a9a7e]" />
             <motion.div 
               className="w-2 h-2 rounded-full bg-[#c5d4bc]"
-              animate={{ opacity: [0.3, 1, 0.3] }}
+              animate={{ 
+                opacity: [0.3, 1, 0.3],
+                scale: [1, 1.2, 1]
+              }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
             />
           </div>

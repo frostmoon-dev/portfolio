@@ -1,5 +1,5 @@
 // File: components/Header.tsx
-// Mission: Elevated sage green navigation with smooth interactions
+// Mission: Elevated sage green navigation with subtle cute aesthetic touches
 
 "use client";
 
@@ -12,7 +12,6 @@ export const Header = () => {
   const { scrollY } = useScroll();
   
   const headerOpacity = useTransform(scrollY, [0, 100], [0.95, 0.98]);
-  const headerBlur = useTransform(scrollY, [0, 100], [8, 16]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,11 +37,22 @@ export const Header = () => {
       }`}
     >
       <nav className="mx-auto max-w-6xl px-6 py-6 flex justify-between items-center">
-        {/* Logo with subtle hover effect */}
-        <Link
-          href="/"
-          className="relative group"
-        >
+        {/* Logo with subtle decorative elements */}
+        <Link href="/" className="relative group flex items-center gap-3">
+          {/* Decorative dots */}
+          <div className="flex gap-1">
+            <motion.div 
+              className="w-1.5 h-1.5 rounded-full bg-[#8a9a7e]"
+              animate={{ opacity: [0.4, 1, 0.4] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div 
+              className="w-1.5 h-1.5 rounded-full bg-[#a8b5a0]"
+              animate={{ opacity: [0.4, 1, 0.4] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+            />
+          </div>
+
           <motion.span
             className="text-[#4a5a43] font-semibold text-xl tracking-tight"
             style={{ fontFamily: "'Biro Script reduced Regular', cursive" }}
@@ -51,6 +61,8 @@ export const Header = () => {
           >
             Fatihah
           </motion.span>
+          
+          {/* Subtle underline animation */}
           <motion.div
             className="absolute -bottom-1 left-0 h-[2px] bg-gradient-to-r from-[#8a9a7e] to-transparent"
             initial={{ width: 0 }}
@@ -71,9 +83,22 @@ export const Header = () => {
             >
               <Link
                 href="#connect"
-                className="relative bg-gradient-to-br from-[#8a9a7e] to-[#6b7a63] text-white px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 shadow-lg shadow-[#8a9a7e]/25 hover:shadow-xl hover:shadow-[#8a9a7e]/35 overflow-hidden group"
+                className="relative bg-gradient-to-br from-[#8a9a7e] to-[#6b7a63] text-white px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 shadow-lg shadow-[#8a9a7e]/25 hover:shadow-xl hover:shadow-[#8a9a7e]/35 overflow-hidden group flex items-center gap-2"
               >
                 <span className="relative z-10">Connect</span>
+                {/* Subtle sparkle effect */}
+                <motion.div
+                  className="relative z-10 w-1 h-1 rounded-full bg-white"
+                  animate={{ 
+                    scale: [0, 1.5, 0],
+                    opacity: [0, 1, 0]
+                  }}
+                  transition={{ 
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-br from-[#6b7a63] to-[#4a5a43]"
                   initial={{ scale: 0, opacity: 0 }}
@@ -95,7 +120,7 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
     <li>
       <Link
         href={href}
-        className="relative text-[#6b7a63] hover:text-[#4a5a43] transition-colors text-sm font-medium tracking-wide group"
+        className="relative text-[#6b7a63] hover:text-[#4a5a43] transition-colors text-sm font-medium tracking-wide group flex items-center gap-2"
       >
         {children}
         <motion.span
@@ -103,6 +128,13 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
           initial={{ width: 0 }}
           whileHover={{ width: "100%" }}
           transition={{ duration: 0.3, ease: "easeOut" }}
+        />
+        {/* Tiny dot indicator */}
+        <motion.span
+          className="w-1 h-1 rounded-full bg-[#a8b5a0]"
+          initial={{ opacity: 0, scale: 0 }}
+          whileHover={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.2 }}
         />
       </Link>
     </li>

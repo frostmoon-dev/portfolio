@@ -1,5 +1,5 @@
 // File: components/ArchiveItem.tsx
-// Mission: Playful archive items with smooth interactions
+// Mission: Playful archive items with cute minimalistic touches
 
 "use client";
 
@@ -19,7 +19,7 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: [0.16, 1, 0.3, 1] as const, // ← Add 'as const' here!
+      ease: [0.16, 1, 0.3, 1] as const,
     },
   },
 };
@@ -46,6 +46,33 @@ export const ArchiveItem = ({ title, imageUrl, id }: ArchiveItemProps) => {
           <div className="absolute bottom-1/3 right-1/3 w-24 h-24 bg-[#8a9a7e] rounded-full blur-2xl" />
         </div>
         
+        {/* Cute floating elements */}
+        <motion.div
+          className="absolute top-1/4 right-1/4 w-2 h-2 rounded-full bg-white/40"
+          animate={{
+            y: [0, -10, 0],
+            opacity: [0.4, 0.8, 0.4],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/3 left-1/3 w-1.5 h-1.5 rounded-full bg-[#8a9a7e]/50"
+          animate={{
+            y: [0, -8, 0],
+            opacity: [0.3, 0.7, 0.3],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+        />
+        
         {/* Center content */}
         <div className="absolute inset-0 flex items-center justify-center">
           <motion.div
@@ -57,6 +84,20 @@ export const ArchiveItem = ({ title, imageUrl, id }: ArchiveItemProps) => {
             {id}
           </motion.div>
         </div>
+
+        {/* Decorative corner elements */}
+        <motion.div
+          className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-white/30 rounded-tl-lg"
+          initial={{ opacity: 0, scale: 0 }}
+          whileHover={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
+        />
+        <motion.div
+          className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-white/30 rounded-br-lg"
+          initial={{ opacity: 0, scale: 0 }}
+          whileHover={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+        />
       </div>
 
       {/* Gradient Overlay */}
@@ -75,14 +116,26 @@ export const ArchiveItem = ({ title, imageUrl, id }: ArchiveItemProps) => {
         transition={{ duration: 0.3, delay: 0.1 }}
       >
         <p 
-          className="text-white text-center text-sm font-medium tracking-wide"
+          className="text-white text-center text-sm font-medium tracking-wide flex items-center gap-1"
           style={{ fontFamily: "'Fragment Mono', monospace" }}
         >
+          <motion.span
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            ·
+          </motion.span>
           {title}
+          <motion.span
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          >
+            ·
+          </motion.span>
         </p>
       </motion.div>
 
-      {/* Number Badge */}
+      {/* Number Badge with pulse */}
       <motion.div
         className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm rounded-full w-11 h-11 flex items-center justify-center z-20 shadow-xl shadow-black/20"
         whileHover={{ 
@@ -100,6 +153,19 @@ export const ArchiveItem = ({ title, imageUrl, id }: ArchiveItemProps) => {
         >
           {id}
         </span>
+        {/* Pulse ring */}
+        <motion.div
+          className="absolute inset-0 border-2 border-[#8a9a7e]/30 rounded-full"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.3, 0, 0.3],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
       </motion.div>
 
       {/* Corner Accent Triangle */}
@@ -109,14 +175,27 @@ export const ArchiveItem = ({ title, imageUrl, id }: ArchiveItemProps) => {
         whileHover={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.3, delay: 0.15 }}
         style={{ transformOrigin: "bottom right" }}
-      />
+      >
+        {/* Tiny decorative dot */}
+        <motion.div
+          className="absolute -left-3 -top-3 w-1 h-1 rounded-full bg-white"
+          animate={{
+            scale: [1, 1.5, 1],
+            opacity: [0.5, 1, 0.5],
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </motion.div>
 
       {/* Subtle shine effect */}
       <motion.div
         className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent"
         initial={{ x: "-100%", y: "-100%" }}
         whileHover={{ x: "100%", y: "100%" }}
-        
         transition={{ duration: 0.8, ease: "easeInOut" }}
       />
     </motion.div>

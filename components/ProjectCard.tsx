@@ -1,5 +1,5 @@
 // File: components/ProjectCard.tsx
-// Mission: Sophisticated project cards with magnetic hover effects
+// Mission: Sophisticated project cards with cute minimalistic touches
 
 "use client";
 
@@ -76,6 +76,20 @@ export const ProjectCard = ({
         className="block rounded-2xl overflow-hidden border border-[#a8b5a0]/30 bg-[#fcfdfb] h-full shadow-lg shadow-[#8a9a7e]/5 hover:shadow-2xl hover:shadow-[#8a9a7e]/15 transition-all duration-500 relative"
         style={{ transform: "translateZ(50px)" }}
       >
+        {/* Cute corner decorations */}
+        <motion.div 
+          className="absolute top-3 left-3 w-3 h-3 border-t-2 border-l-2 border-[#a8b5a0]/30 rounded-tl-lg z-20"
+          initial={{ opacity: 0, scale: 0 }}
+          whileHover={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
+        />
+        <motion.div 
+          className="absolute top-3 right-14 w-3 h-3 border-t-2 border-r-2 border-[#a8b5a0]/30 rounded-tr-lg z-20"
+          initial={{ opacity: 0, scale: 0 }}
+          whileHover={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3, delay: 0.05 }}
+        />
+
         {/* Image Container with Overlay */}
         <div className="relative w-full h-64 overflow-hidden">
           <motion.div
@@ -96,26 +110,76 @@ export const ProjectCard = ({
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#f8f9f5] via-transparent to-transparent opacity-60" />
           
-          {/* Arrow Icon */}
+          {/* Cute floating dots on hover */}
+          <motion.div
+            className="absolute top-6 left-6 flex gap-1"
+            initial={{ opacity: 0 }}
+            whileHover={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.div 
+              className="w-1.5 h-1.5 rounded-full bg-white/80"
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div 
+              className="w-1.5 h-1.5 rounded-full bg-white/60"
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+            />
+            <motion.div 
+              className="w-1.5 h-1.5 rounded-full bg-white/40"
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+            />
+          </motion.div>
+          
+          {/* Arrow Icon with pulse */}
           <motion.div
             className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2.5 shadow-lg"
             initial={{ opacity: 0, scale: 0.8 }}
             whileHover={{ scale: 1.1, opacity: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <ArrowUpRight className="w-5 h-5 text-[#4a5a43]" />
+            <motion.div
+              animate={{ 
+                rotate: [0, 5, 0],
+              }}
+              transition={{ 
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <ArrowUpRight className="w-5 h-5 text-[#4a5a43]" />
+            </motion.div>
           </motion.div>
         </div>
 
         {/* Content */}
-        <div className="p-7">
+        <div className="p-7 relative">
+          {/* Subtle decorative element */}
+          <motion.div
+            className="absolute top-0 left-0 w-12 h-[1px] bg-gradient-to-r from-[#a8b5a0] to-transparent"
+            initial={{ scaleX: 0 }}
+            whileHover={{ scaleX: 1 }}
+            transition={{ duration: 0.4 }}
+          />
+
           <motion.h3 
-            className="text-2xl text-[#4a5a43] mb-3 font-light tracking-tight"
+            className="text-2xl text-[#4a5a43] mb-3 font-light tracking-tight flex items-center gap-2"
             style={{ fontFamily: "'Lock Serif Light', serif" }}
             whileHover={{ x: 4 }}
             transition={{ duration: 0.2 }}
           >
             {title}
+            <motion.span
+              className="text-[#a8b5a0] text-sm"
+              animate={{ opacity: [0.3, 1, 0.3] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              ·
+            </motion.span>
           </motion.h3>
           
           <p className="text-[#6b7a63] mb-5 leading-relaxed" style={{ fontFamily: "'Fragment Mono', monospace", fontSize: "0.9rem" }}>
@@ -130,7 +194,11 @@ export const ProjectCard = ({
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="text-xs text-[#6b7a63] bg-[#e8ede5] px-3 py-1.5 rounded-full font-medium border border-[#a8b5a0]/20 hover:bg-[#d4e0ce] hover:border-[#8a9a7e]/40 transition-all duration-300"
+                whileHover={{ 
+                  y: -2,
+                  boxShadow: "0 4px 12px rgba(138, 154, 126, 0.15)"
+                }}
+                className="text-xs text-[#6b7a63] bg-[#e8ede5] px-3 py-1.5 rounded-full font-medium border border-[#a8b5a0]/20 hover:bg-[#d4e0ce] hover:border-[#8a9a7e]/40 transition-all duration-300 cursor-default"
                 style={{ fontFamily: "'Fragment Mono', monospace" }}
               >
                 {tag}
@@ -139,13 +207,21 @@ export const ProjectCard = ({
           </div>
         </div>
 
-        {/* Bottom accent line */}
-        <motion.div
-          className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#8a9a7e] via-[#a8b5a0] to-transparent"
-          initial={{ width: 0 }}
-          whileHover={{ width: "100%" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        />
+        {/* Bottom accent line with animated dots */}
+        <div className="absolute bottom-0 left-0 right-0 flex items-center">
+          <motion.div
+            className="h-1 bg-gradient-to-r from-[#8a9a7e] via-[#a8b5a0] to-transparent flex-1"
+            initial={{ width: 0 }}
+            whileHover={{ width: "100%" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          />
+          <motion.div
+            className="absolute bottom-0 right-4 w-1.5 h-1.5 rounded-full bg-[#8a9a7e]"
+            initial={{ opacity: 0, scale: 0 }}
+            whileHover={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          />
+        </div>
       </Link>
     </motion.div>
   );
