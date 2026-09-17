@@ -5,54 +5,43 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        accent: "#2196F3",
-        "editor-border": "#e7e5e4",
-        "text-primary": "#292524",
-        "text-secondary": "#57534e",
-        "text-muted": "#a8a29e",
+        bg: "#FFF0DE",
+        surface: "#FFFBF3",
+        "surface-alt": "#F3E1C4",
+        ink: "#4A3230",
+        "ink-muted": "#6E5549",
+        primary: "#694A47",
+        "primary-dark": "#4A3230",
+        secondary: "#96C1C5",
+        "secondary-ink": "#3F6C71",
+        accent: "#EFB8B4",
+        "accent-ink": "#8A4A46",
+        border: "#D8C4AE",
+        success: "#7C9A6F",
+        warning: "#C98A2E",
+        error: "#B3564A",
       },
       fontFamily: {
-        noto: ["var(--font-noto)"],
-        "courier-prime": ["var(--font-courier-prime)"],
+        display: ["var(--font-display)"],
+        body: ["var(--font-body)"],
+        hand: ["var(--font-hand)"],
       },
       keyframes: {
-        "hero-fade-in": {
-          from: { opacity: "0" },
-          to: { opacity: "1" },
+        "pin-wiggle": {
+          "0%, 100%": { transform: "rotate(-1.5deg)" },
+          "50%": { transform: "rotate(1.5deg)" },
         },
-        "hero-slide-up": {
-          from: { opacity: "0", transform: "translateY(24px)" },
-          to: { opacity: "1", transform: "translateY(0)" },
+        blink: {
+          "0%, 49%": { opacity: "1" },
+          "50%, 100%": { opacity: "0" },
         },
-        "hero-slide-left": {
-          from: { opacity: "0", transform: "translateX(-24px)" },
-          to: { opacity: "1", transform: "translateX(0)" },
-        },
-        "hero-slide-right": {
-          from: { opacity: "0", transform: "translateX(24px)" },
-          to: { opacity: "1", transform: "translateX(0)" },
-        },
-        "hero-pop": {
-          "0%": { opacity: "0", transform: "scale(0.6)" },
-          "100%": { opacity: "1", transform: "scale(1)" },
-        },
-        "vinyl-spin": {
-          from: { transform: "rotate(0deg)" },
-          to: { transform: "rotate(360deg)" },
-        },
-        "badge-swing": {
-          "0%, 100%": { transform: "rotate(-2deg)" },
-          "50%": { transform: "rotate(2deg)" },
-        },
-        "board-float": {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-6px)" },
+        "pop-in": {
+          "0%": { opacity: "0", transform: "translateY(10px) scale(0.97)" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
         },
       },
       animation: {
-        "vinyl-spin": "vinyl-spin 6s linear infinite",
-        "badge-swing": "badge-swing 4s ease-in-out infinite",
-        "board-float": "board-float 8s ease-in-out infinite",
+        blink: "blink 1.4s step-start infinite",
       },
     },
   },

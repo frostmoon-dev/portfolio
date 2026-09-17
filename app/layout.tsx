@@ -1,24 +1,32 @@
 import type { Metadata } from "next";
-import { Noto_Sans, Courier_Prime } from "next/font/google";
+import { Fraunces, Karla, Caveat } from "next/font/google";
 import "./globals.css";
 
-const notoSans = Noto_Sans({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-noto",
+  variable: "--font-display",
+  display: "swap",
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+});
+
+const karla = Karla({
+  subsets: ["latin"],
+  variable: "--font-body",
   display: "swap",
 });
 
-const courierPrime = Courier_Prime({
+const caveat = Caveat({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-courier-prime",
+  variable: "--font-hand",
   display: "swap",
+  weight: ["600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Your Name — Product Designer",
+  title: "Your Name — About Me",
   description:
-    "I think, then I build. Product Designer with hands-on experience shipping B2B and B2C products.",
+    "Personal corner of the internet: who I am, what I make, and what I'm into.",
 };
 
 export default function RootLayout({
@@ -27,10 +35,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${notoSans.variable} ${courierPrime.variable}`}>
-      <body className="font-sans antialiased bg-[#F7F1E8] text-stone-700">
-        {children}
-      </body>
+    <html
+      lang="en"
+      className={`${fraunces.variable} ${karla.variable} ${caveat.variable}`}
+    >
+      <body className="font-body antialiased bg-bg text-ink">{children}</body>
     </html>
   );
 }
