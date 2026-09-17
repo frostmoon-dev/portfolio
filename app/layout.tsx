@@ -1,32 +1,33 @@
 import type { Metadata } from "next";
-import { Fraunces, Karla, Caveat } from "next/font/google";
+import { DM_Serif_Text, DM_Sans, Pinyon_Script } from "next/font/google";
 import "./globals.css";
 
-const fraunces = Fraunces({
+const dmSerifText = DM_Serif_Text({
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-serif",
   display: "swap",
-  weight: ["500", "600", "700"],
+  weight: "400",
   style: ["normal", "italic"],
 });
 
-const karla = Karla({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-body",
+  variable: "--font-sans",
   display: "swap",
+  weight: ["400", "500", "700"],
 });
 
-const caveat = Caveat({
+const pinyonScript = Pinyon_Script({
   subsets: ["latin"],
-  variable: "--font-hand",
+  variable: "--font-script",
   display: "swap",
-  weight: ["600", "700"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
-  title: "Your Name — About Me",
+  title: "Nurfatihah",
   description:
-    "Personal corner of the internet: who I am, what I make, and what I'm into.",
+    "ERP developer by day, interface designer by conviction. Enterprise software, UI/UX, cosplay, and film photography.",
 };
 
 export default function RootLayout({
@@ -37,9 +38,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${karla.variable} ${caveat.variable}`}
+      className={`${dmSerifText.variable} ${dmSans.variable} ${pinyonScript.variable}`}
     >
-      <body className="font-body antialiased bg-bg text-ink">{children}</body>
+      <body className="font-sans antialiased bg-cream text-ink">{children}</body>
     </html>
   );
 }
