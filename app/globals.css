@@ -2,254 +2,131 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --grain-opacity: 0.05;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 body {
-  background-color: #f7f1e8;
+  background-color: #fff0de;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(105, 74, 71, 0.07) 1px, transparent 0);
+  background-size: 22px 22px;
 }
 
-/* ---------- entrance choreography ---------- */
-
-@keyframes hero-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+/* Visible, high-contrast focus ring everywhere — never remove without replacing */
+:focus-visible {
+  outline: 2.5px solid #4a3230;
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
-@keyframes hero-blur-in {
-  from {
-    opacity: 0;
-    filter: blur(6px);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0);
-  }
+/* ---------- widget "window" chrome ---------- */
+
+.widget {
+  background: #fffbf3;
+  border: 2px solid #4a3230;
+  box-shadow: 4px 4px 0 rgba(74, 50, 48, 0.18);
 }
 
-@keyframes hero-slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.widget-title {
+  border-bottom: 2px solid #4a3230;
+  background: repeating-linear-gradient(
+    135deg,
+    #96c1c5 0px,
+    #96c1c5 10px,
+    #86b3b7 10px,
+    #86b3b7 20px
+  );
 }
 
-@keyframes hero-slide-left {
-  from {
-    opacity: 0;
-    transform: translateX(-28px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
+/* ---------- pins / tape ---------- */
 
-@keyframes hero-slide-right {
-  from {
-    opacity: 0;
-    transform: translateX(28px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes hero-pop {
-  0% {
-    opacity: 0;
-    transform: scale(0.6);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes hero-glare {
-  0%,
-  40% {
-    opacity: 0;
-    transform: translateX(-120%);
-  }
-  60% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(120%);
-  }
-}
-
-.hero-entrance {
-  will-change: opacity, transform;
-}
-
-/* ---------- vinyl + badge + board ---------- */
-
-@keyframes vinyl-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-.vinyl-spin {
-  animation: vinyl-spin 5s linear infinite;
-}
-
-@keyframes badge-swing {
-  0%,
-  100% {
-    transform: rotate(-2.5deg);
-  }
-  50% {
-    transform: rotate(2.5deg);
-  }
-}
-.badge-swing {
-  animation: badge-swing 4.5s ease-in-out infinite;
-  transform-origin: top center;
-}
-
-@keyframes board-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-.board-float {
-  animation: board-float 9s ease-in-out infinite;
-}
-
-@keyframes vinyl-border-rotate {
-  to {
-    --vinyl-angle: 360deg;
-  }
-}
-@property --vinyl-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-/* ---------- small hover flourishes ---------- */
-
-@keyframes coffee-wobble {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(-4deg);
-  }
-  75% {
-    transform: rotate(4deg);
-  }
-}
-.coffee-wobble:hover {
-  animation: coffee-wobble 0.6s ease-in-out;
-}
-
-.plant-hover {
-  transition: transform 0.3s ease;
-}
-
-.pencil-line {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.group\/pencil:hover .pencil-line {
-  opacity: 1;
-}
-
-@keyframes ticket-scan {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.egg-border {
-  transition: border-color 0.2s ease;
-}
-.egg-border:hover {
-  border-color: rgba(120, 113, 108, 0.8);
-}
-
-/* ---------- LED dot grid ---------- */
-
-.dot-led {
-  background-color: rgba(0, 0, 0, 0.08);
-}
-.dot-led.dot-on {
-  background-color: var(--dot-color, #2196f3);
-  box-shadow: 0 0 3px var(--dot-color, #2196f3);
-  animation: dot-pulse 2.4s ease-in-out infinite;
-  animation-delay: var(--dot-delay, 0ms);
-}
-@keyframes dot-pulse {
-  0%,
-  100% {
-    opacity: 0.55;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-/* ---------- social row text -> icon morph ---------- */
-
-.social-morph {
-  min-width: 64px;
-  height: 32px;
-}
-.social-morph-text {
-  transition: opacity 0.15s ease;
-  white-space: nowrap;
-}
-.social-morph-icon {
+.pin-dot::before {
+  content: "";
   position: absolute;
+  top: -9px;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.15s ease;
-}
-.social-morph:hover .social-morph-text {
-  opacity: 0;
-}
-.social-morph:hover .social-morph-icon {
-  opacity: 1;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #e8a1a1, #b3564a 70%);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25);
 }
 
-/* ---------- bulletin board photo cards ---------- */
+.tape {
+  position: absolute;
+  height: 26px;
+  width: 70px;
+  background: rgba(150, 193, 197, 0.55);
+  border: 1px solid rgba(74, 50, 48, 0.15);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
 
-.bulletin-card {
-  cursor: grab;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+/* ---------- blinking status dot ---------- */
+
+.status-dot {
+  box-shadow: 0 0 0 3px rgba(124, 154, 111, 0.25);
 }
-.bulletin-card:hover {
-  transform: translateY(-4px) scale(1.03) !important;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-  z-index: 20 !important;
+
+/* ---------- marquee (reduced-motion safe: static wrap fallback via media query below) ---------- */
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
-.bulletin-card:active {
-  cursor: grabbing;
+.marquee-track {
+  animation: marquee-scroll 18s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    transform: none !important;
+  }
+}
+
+/* ---------- hobby sticker hover ---------- */
+
+.sticker {
+  transition: transform 0.15s ease;
+}
+.sticker:hover,
+.sticker:focus-visible {
+  transform: translateY(-3px) rotate(-1deg);
+}
+
+/* ---------- pop in for guestbook / hobby cards ---------- */
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
