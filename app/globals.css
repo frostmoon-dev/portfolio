@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --grain-opacity: 0.05;
-}
-
 html {
   scroll-behavior: smooth;
 }
@@ -17,9 +13,9 @@ html {
   *,
   *::before,
   *::after {
-    animation-duration: 0.001ms !important;
+    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
+    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
 }
@@ -27,106 +23,51 @@ html {
 body {
   background-color: #fff0de;
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(105, 74, 71, 0.07) 1px, transparent 0);
-  background-size: 22px 22px;
+    linear-gradient(rgba(150, 193, 197, 0.38) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(150, 193, 197, 0.38) 1px, transparent 1px);
+  background-size: 26px 26px;
 }
 
-/* Visible, high-contrast focus ring everywhere — never remove without replacing */
+::selection {
+  background: #96c1c5;
+  color: #31221f;
+}
+
 :focus-visible {
-  outline: 2.5px solid #4a3230;
-  outline-offset: 2px;
-  border-radius: 2px;
+  outline: 2px solid #694a47;
+  outline-offset: 3px;
 }
 
-/* ---------- widget "window" chrome ---------- */
-
-.widget {
-  background: #fffbf3;
-  border: 2px solid #4a3230;
-  box-shadow: 4px 4px 0 rgba(74, 50, 48, 0.18);
+/* Reusable dotted-grid backdrop, tuned per use via CSS custom properties. */
+.bg-dot-grid {
+  background-color: var(--dot-bg, transparent);
+  background-image:
+    linear-gradient(var(--dot-line, rgba(150, 193, 197, 0.6)) 1px, transparent 1px),
+    linear-gradient(90deg, var(--dot-line, rgba(150, 193, 197, 0.6)) 1px, transparent 1px);
+  background-size: var(--dot-size, 15px) var(--dot-size, 15px);
 }
 
-.widget-title {
-  border-bottom: 2px solid #4a3230;
-  background: repeating-linear-gradient(
-    135deg,
-    #96c1c5 0px,
-    #96c1c5 10px,
-    #86b3b7 10px,
-    #86b3b7 20px
-  );
+/* Scalloped divider used under the hero banner. */
+.scallop-divider {
+  height: 18px;
+  background-color: #fff8ec;
+  background-image: radial-gradient(circle at 14px 18px, #fff0de 13px, rgba(0, 0, 0, 0) 13.5px);
+  background-size: 28px 18px;
+  background-repeat: repeat-x;
 }
 
-/* ---------- pins / tape ---------- */
-
-.pin-dot::before {
-  content: "";
-  position: absolute;
-  top: -9px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #e8a1a1, #b3564a 70%);
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25);
+/* Word-by-word heading reveal clip. */
+.split-word-clip {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.06em;
 }
-
-.tape {
-  position: absolute;
-  height: 26px;
-  width: 70px;
-  background: rgba(150, 193, 197, 0.55);
-  border: 1px solid rgba(74, 50, 48, 0.15);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+.split-word-inner {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 0.82s cubic-bezier(0.19, 1, 0.22, 1);
 }
-
-/* ---------- blinking status dot ---------- */
-
-.status-dot {
-  box-shadow: 0 0 0 3px rgba(124, 154, 111, 0.25);
-}
-
-/* ---------- marquee (reduced-motion safe: static wrap fallback via media query below) ---------- */
-
-@keyframes marquee-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-.marquee-track {
-  animation: marquee-scroll 18s linear infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
-    flex-wrap: wrap;
-    transform: none !important;
-  }
-}
-
-/* ---------- hobby sticker hover ---------- */
-
-.sticker {
-  transition: transform 0.15s ease;
-}
-.sticker:hover,
-.sticker:focus-visible {
-  transform: translateY(-3px) rotate(-1deg);
-}
-
-/* ---------- pop in for guestbook / hobby cards ---------- */
-
-@keyframes pop-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+.split-word-inner.is-visible {
+  transform: none;
 }
