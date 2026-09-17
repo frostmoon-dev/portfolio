@@ -1,0 +1,255 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f7f1e8;
+}
+
+/* ---------- entrance choreography ---------- */
+
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-blur-in {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes hero-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes hero-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes hero-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes hero-glare {
+  0%,
+  40% {
+    opacity: 0;
+    transform: translateX(-120%);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+}
+
+.hero-entrance {
+  will-change: opacity, transform;
+}
+
+/* ---------- vinyl + badge + board ---------- */
+
+@keyframes vinyl-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.vinyl-spin {
+  animation: vinyl-spin 5s linear infinite;
+}
+
+@keyframes badge-swing {
+  0%,
+  100% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+.badge-swing {
+  animation: badge-swing 4.5s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+@keyframes board-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.board-float {
+  animation: board-float 9s ease-in-out infinite;
+}
+
+@keyframes vinyl-border-rotate {
+  to {
+    --vinyl-angle: 360deg;
+  }
+}
+@property --vinyl-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* ---------- small hover flourishes ---------- */
+
+@keyframes coffee-wobble {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-4deg);
+  }
+  75% {
+    transform: rotate(4deg);
+  }
+}
+.coffee-wobble:hover {
+  animation: coffee-wobble 0.6s ease-in-out;
+}
+
+.plant-hover {
+  transition: transform 0.3s ease;
+}
+
+.pencil-line {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.group\/pencil:hover .pencil-line {
+  opacity: 1;
+}
+
+@keyframes ticket-scan {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.egg-border {
+  transition: border-color 0.2s ease;
+}
+.egg-border:hover {
+  border-color: rgba(120, 113, 108, 0.8);
+}
+
+/* ---------- LED dot grid ---------- */
+
+.dot-led {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+.dot-led.dot-on {
+  background-color: var(--dot-color, #2196f3);
+  box-shadow: 0 0 3px var(--dot-color, #2196f3);
+  animation: dot-pulse 2.4s ease-in-out infinite;
+  animation-delay: var(--dot-delay, 0ms);
+}
+@keyframes dot-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ---------- social row text -> icon morph ---------- */
+
+.social-morph {
+  min-width: 64px;
+  height: 32px;
+}
+.social-morph-text {
+  transition: opacity 0.15s ease;
+  white-space: nowrap;
+}
+.social-morph-icon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.social-morph:hover .social-morph-text {
+  opacity: 0;
+}
+.social-morph:hover .social-morph-icon {
+  opacity: 1;
+}
+
+/* ---------- bulletin board photo cards ---------- */
+
+.bulletin-card {
+  cursor: grab;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.bulletin-card:hover {
+  transform: translateY(-4px) scale(1.03) !important;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  z-index: 20 !important;
+}
+.bulletin-card:active {
+  cursor: grabbing;
+}
