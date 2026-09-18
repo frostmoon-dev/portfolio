@@ -5,9 +5,9 @@ import { SideDock } from "@/components/SideDock";
 import { StatusGadget } from "@/components/StatusGadget";
 
 export const metadata: Metadata = {
-  title: "Teha — ERP Developer & UI/UX Enthusiast",
+  title: "Teha — Cosplay, Games & Whatever I'm Watching",
   description:
-    "Teha is an ERP developer and UI/UX enthusiast based in Malaysia, turning enterprise software nobody enjoys into interfaces that quietly just work.",
+    "Teha's corner for cosplay builds, games, and anime/manga — off the clock from ERP development and UI/UX work.",
   icons: {
     icon: "/favicon.svg",
   },
@@ -28,12 +28,12 @@ const PERSON_JSON_LD = {
   name: "Teha",
   jobTitle: "ERP Developer",
   description:
-    "ERP developer and UI/UX enthusiast turning enterprise software into interfaces that quietly just work.",
+    "Cosplayer, gamer, and anime/manga fan based in Malaysia. ERP developer and UI/UX enthusiast by profession.",
   homeLocation: {
     "@type": "Place",
     name: "Malaysia",
   },
-  knowsAbout: ["ERP Development", "UI/UX Design", "Interaction Design", "Costume Making"],
+  knowsAbout: ["Cosplay", "Costume Making", "Anime", "Video Games", "ERP Development", "UI/UX Design"],
   sameAs: ["https://github.com/frostmoon-dev"],
 };
 
