@@ -16,7 +16,7 @@ const NAME: Glyph[] = [
   { html: "(テハ)", cls: "zh" },
 ];
 
-const ROLE: Glyph[] = "an erp developer, ui/ux enthusiast".split("").map((ch) => ({
+const ROLE: Glyph[] = "an erp + ux dev".split("").map((ch) => ({
   html: ch === " " ? NBSP : ch,
 }));
 

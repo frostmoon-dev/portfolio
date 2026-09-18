@@ -190,7 +190,7 @@ export function Playground() {
   }, []);
 
   return (
-    <section className="playground" aria-label="A message from Teha">
+    <section id="message" className="playground" aria-label="A message from Teha">
       <div className="player" id="player" ref={playerRef}>
         <div className="player-art">
           <img className="art-img" src="/images/avatar.png" alt="" />
