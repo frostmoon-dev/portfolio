@@ -129,7 +129,7 @@ export function Collage() {
   }, []);
 
   return (
-    <div className="collage" ref={rootRef} aria-label="Design and interface experiments by Teha">
+    <div id="work" className="collage" ref={rootRef} aria-label="Design and interface experiments by Teha">
       {TILES.map((tile) =>
         tile.video ? (
           <figure className="tile" key={tile.label}>
