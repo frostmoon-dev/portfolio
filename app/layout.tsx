@@ -1,6 +1,5 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { SideDock } from "@/components/SideDock";
 import { StatusGadget } from "@/components/StatusGadget";
 
@@ -13,14 +12,9 @@ export const metadata: Metadata = {
   },
 };
 
-const THEME_INIT = `
-  try {
-    var saved = localStorage.getItem("theme");
-    document.documentElement.setAttribute("data-theme", saved || "dark");
-  } catch (e) {
-    document.documentElement.setAttribute("data-theme", "dark");
-  }
-`;
+export const viewport: Viewport = {
+  colorScheme: "dark",
+};
 
 const PERSON_JSON_LD = {
   "@context": "https://schema.org",
@@ -43,17 +37,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="dark">
+    <html lang="en">
       <head>
-        {/* Set before paint so the toggle doesn't flash the wrong theme on load. */}
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSON_LD) }}
         />
       </head>
       <body>
-        <ThemeToggle />
         <SideDock />
         <StatusGadget />
         {children}
