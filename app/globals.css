@@ -1,27 +1,29 @@
+/* Palette drawn from the reference illustration: warm charcoal linework,
+   cream paper, and a muted burgundy/dusty-rose accent (the scarf + flower). */
 :root {
-  --ink: #1a1a1a;
-  --soft: #6b6b6b;
-  --bg: #fbfbf9;
-  --body-text: #2e2e2e;
-  --border: #d8d8d2;
+  --ink: #1c1613;
+  --soft: #6b5c58;
+  --bg: #fdf9f5;
+  --body-text: #362e2b;
+  --border: #ded0ca;
   --card: #ffffff;
-  /* Lens stroke - stronger blue so it reads on white */
-  --lens-blue: #2f8fff;
-  --lens-crest: #9ccfff;
-  --lens-glow: rgba(47, 143, 255, 0.5);
+  /* Lens stroke - the scarf's burgundy, deep enough to read on cream */
+  --lens-accent: #6b4644;
+  --lens-crest: #d8b8b0;
+  --lens-glow: rgba(107, 70, 68, 0.45);
 }
 
 :root[data-theme="dark"] {
-  --ink: #f0efe9;
-  --soft: #8a8a8a;
-  --bg: #121212;
-  --body-text: #cfcfca;
-  --border: #3a3a38;
-  --card: #1d1d1d;
-  /* Lens stroke - neon on dark */
-  --lens-blue: #7fd0ff;
-  --lens-crest: #eaf8ff;
-  --lens-glow: rgba(127, 208, 255, 0.75);
+  --ink: #f3e9e2;
+  --soft: #a89490;
+  --bg: #16120f;
+  --body-text: #d9cac2;
+  --border: #3c312d;
+  --card: #211b18;
+  /* Lens stroke - lifted to a brighter rose so it still glows on near-black */
+  --lens-accent: #e0a39c;
+  --lens-crest: #f7e0da;
+  --lens-glow: rgba(224, 163, 156, 0.7);
 }
 
 * {
@@ -269,9 +271,9 @@ h1 {
     from var(--lens-angle),
     transparent 0deg,
     transparent 150deg,
-    var(--lens-blue) 250deg,
+    var(--lens-accent) 250deg,
     var(--lens-crest) 300deg,
-    var(--lens-blue) 330deg,
+    var(--lens-accent) 330deg,
     transparent 360deg
   );
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -343,8 +345,8 @@ h1 {
 /* ---------- Text highlight ---------- */
 
 .highlight {
-  background: #b9d9f7;
-  color: #1a1a1a;
+  background: #e6c9c2;
+  color: #2a1a18;
   padding: 0 0.15em;
   border-radius: 2px;
   white-space: nowrap;
