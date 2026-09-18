@@ -18,7 +18,7 @@ const GROUPS = [
 
 export function Stack() {
   return (
-    <section id="stack" className="stack">
+    <section id="stack" className="content-section">
       <div className="wrap">
         <Reveal as="p" className="section-kicker">
           Stack

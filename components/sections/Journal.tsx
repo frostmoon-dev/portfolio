@@ -35,7 +35,7 @@ export function Journal() {
   }
 
   return (
-    <section id="journal" className="journal">
+    <section id="journal" className="content-section">
       <div className="wrap">
         <Reveal as="p" className="section-kicker">
           Journal

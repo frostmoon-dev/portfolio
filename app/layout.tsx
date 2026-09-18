@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { SideDock } from "@/components/SideDock";
+import { StatusGadget } from "@/components/StatusGadget";
 
 export const metadata: Metadata = {
   title: "Teha — ERP Developer & UI/UX Enthusiast",
@@ -49,7 +52,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_JSON_LD) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <ThemeToggle />
+        <SideDock />
+        <StatusGadget />
+        {children}
+      </body>
     </html>
   );
 }

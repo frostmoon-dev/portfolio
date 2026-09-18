@@ -1,6 +1,3 @@
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { SideDock } from "@/components/SideDock";
-import { StatusGadget } from "@/components/StatusGadget";
 import { NameSwap } from "@/components/NameSwap";
 import { Socials } from "@/components/Socials";
 import { LensBio } from "@/components/LensBio";
@@ -13,10 +10,6 @@ import { Footer } from "@/components/Footer";
 export default function Home() {
   return (
     <>
-      <ThemeToggle />
-      <SideDock />
-      <StatusGadget />
-
       <div className="wrap">
         <section id="top" className="intro">
           <div className="hero">
