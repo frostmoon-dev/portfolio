@@ -1,30 +1,30 @@
-/* Palette: Sebum #596070, Cartilage #757F99, Substantia Grisea #94A9BE,
-   Lymphatic #B2CDDF, Neutrophils #C9D9E6, Antibiotics #EAF1F1 — a cool
-   blue-grey ramp, darkest to lightest. Role assignments below are checked
-   against WCAG contrast, not just picked by eye (this ramp is narrow
-   enough that some pairings look fine but read poorly). */
+/* Palette: Raisin Black #282623, Ceil #9997BF, Languid Lavender #D0CBE3,
+   Dark Silver #746D6C, Pastel Blue #ABC1C7. Role assignments checked
+   against WCAG contrast: Ceil and Pastel Blue cluster close in lightness
+   to Languid Lavender, so neither reads well as text on that background —
+   they're used decoratively (border, glow tip) in light mode instead. */
 :root {
-  --ink: #596070; /* Sebum — 5.5:1 on bg */
-  --soft: #757F99; /* Cartilage — labels/secondary, 3.5:1 on bg */
-  --bg: #eaf1f1; /* Antibiotics */
-  --body-text: #596070; /* Sebum — Cartilage tested too low-contrast for paragraph copy */
-  --border: #c9d9e6; /* Neutrophils */
+  --ink: #282623; /* Raisin Black — 9.6:1 on bg */
+  --soft: #746d6c; /* Dark Silver — 3.2:1 on bg */
+  --bg: #d0cbe3; /* Languid Lavender */
+  --body-text: #282623; /* Raisin Black */
+  --border: #9997bf; /* Ceil — too pale to read as text on this bg, fine as a hairline */
   --card: #ffffff;
-  --lens-accent: #757F99; /* Cartilage */
-  --lens-crest: #b2cddf; /* Lymphatic */
-  --lens-glow: rgba(117, 127, 153, 0.45);
+  --lens-accent: #746d6c; /* Dark Silver */
+  --lens-crest: #abc1c7; /* Pastel Blue — decorative glow tip only */
+  --lens-glow: rgba(116, 109, 108, 0.45);
 }
 
 :root[data-theme="dark"] {
-  --ink: #eaf1f1; /* Antibiotics — 5.5:1 on bg */
-  --soft: #b2cddf; /* Lymphatic — 3.8:1 on bg */
-  --bg: #596070; /* Sebum, the only dark member of the ramp */
-  --body-text: #c9d9e6; /* Neutrophils — 4.4:1 on bg */
-  --border: #94a9be; /* Substantia Grisea */
-  --card: #596070; /* same as bg: Cartilage tested too low-contrast for on-card text, so cards read via border only */
-  --lens-accent: #b2cddf; /* Lymphatic */
-  --lens-crest: #eaf1f1; /* Antibiotics */
-  --lens-glow: rgba(178, 205, 223, 0.7);
+  --ink: #d0cbe3; /* Languid Lavender — 9.6:1 on bg */
+  --soft: #9997bf; /* Ceil — 5.4:1 on bg */
+  --bg: #282623; /* Raisin Black */
+  --body-text: #abc1c7; /* Pastel Blue — 8:1 on bg */
+  --border: #746d6c; /* Dark Silver */
+  --card: #282623; /* same as bg: Dark Silver tested too low-contrast for on-card text, so cards read via border only */
+  --lens-accent: #9997bf; /* Ceil */
+  --lens-crest: #d0cbe3; /* Languid Lavender */
+  --lens-glow: rgba(153, 151, 191, 0.7);
 }
 
 * {
@@ -298,8 +298,8 @@ h1 {
 /* ---------- Text highlight ---------- */
 
 .highlight {
-  background: #b2cddf; /* Lymphatic */
-  color: #596070; /* Sebum — 3.8:1, fine for a short chip, not body copy */
+  background: #abc1c7; /* Pastel Blue */
+  color: #282623; /* Raisin Black — 8:1 */
   padding: 0 0.15em;
   border-radius: 2px;
   white-space: nowrap;
