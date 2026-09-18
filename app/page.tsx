@@ -1,10 +1,11 @@
 import { NameSwap } from "@/components/NameSwap";
 import { Socials } from "@/components/Socials";
 import { LensBio } from "@/components/LensBio";
-import { Collage } from "@/components/Collage";
-import { Playground } from "@/components/Playground";
-import { Stack } from "@/components/sections/Stack";
+import { CosplayGallery } from "@/components/sections/CosplayGallery";
+import { GamesShelf } from "@/components/sections/GamesShelf";
+import { WatchList } from "@/components/sections/WatchList";
 import { Journal } from "@/components/sections/Journal";
+import { Playground } from "@/components/Playground";
 import { Footer } from "@/components/Footer";
 
 export default function Home() {
@@ -18,13 +19,13 @@ export default function Home() {
             <LensBio />
           </div>
         </section>
-
-        <Collage />
-        <Playground />
       </div>
 
-      <Stack />
+      <CosplayGallery />
+      <GamesShelf />
+      <WatchList />
       <Journal />
+      <Playground />
       <Footer />
     </>
   );

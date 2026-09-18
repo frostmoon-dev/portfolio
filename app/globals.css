@@ -54,15 +54,12 @@ body {
 /* ---------- Intro ---------- */
 
 .intro {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: clamp(3rem, 8vw, 6rem) 0;
-  z-index: 0;
 }
 
 .hero {
@@ -123,57 +120,6 @@ h1 {
 .bio p { font-size: 15px; color: var(--body-text); }
 .bio p + p { margin-top: 1.1rem; }
 .accent { color: var(--ink); font-style: italic; }
-
-/* ---------- Collage ---------- */
-
-.collage {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background: var(--bg);
-  min-height: 100vh;
-  min-height: 100svh;
-  overflow: hidden;
-  padding-top: clamp(2rem, 5vw, 4rem);
-  padding-bottom: clamp(4rem, 9vw, 7rem);
-  column-count: 3;
-  column-gap: clamp(0.7rem, 1.4vw, 1.1rem);
-}
-
-.tile {
-  break-inside: avoid;
-  margin-bottom: clamp(0.7rem, 1.4vw, 1.1rem);
-  will-change: transform;
-}
-
-.tile video,
-.tile .tile-placeholder {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 6px;
-  background: transparent;
-  transition: transform 0.45s ease;
-}
-
-.tile-placeholder {
-  aspect-ratio: var(--ar, 1);
-  display: flex;
-  align-items: flex-end;
-  padding: 0.7rem;
-  background: linear-gradient(160deg, color-mix(in srgb, var(--ink) 6%, transparent), color-mix(in srgb, var(--ink) 12%, transparent));
-  border: 1px dashed var(--border);
-  color: var(--soft);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.tile:hover video,
-.tile:hover .tile-placeholder { transform: scale(1.012); }
-
-@media (max-width: 980px) { .collage { column-count: 2; } }
-@media (max-width: 560px) { .collage { column-count: 1; } }
 
 /* ---------- Theme toggle ---------- */
 
@@ -371,19 +317,14 @@ h1 {
 /* ---------- Playground: spin-to-play CD ---------- */
 
 .playground {
-  position: sticky;
-  top: 0;
-  min-height: 100vh;
-  min-height: 100svh;
-  z-index: 2;
+  border-top: 1px solid var(--border);
   background: var(--bg);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: clamp(1.4rem, 4vw, 2.4rem);
-  padding: clamp(2.5rem, 7vw, 5rem) clamp(1.5rem, 5vw, 4rem);
-  overflow: hidden;
+  padding: clamp(3.5rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem);
 }
 .player {
   position: relative;
@@ -532,11 +473,7 @@ h1 {
 .progress:focus-visible { outline: 2px solid #1a1a1a; outline-offset: 3px; }
 
 @media (max-width: 640px) {
-  .collage { position: relative; min-height: 0; }
   .playground {
-    position: relative;
-    min-height: 0;
-    overflow: visible;
     padding: clamp(3rem, 10vw, 4.5rem) 1.25rem clamp(4rem, 14vw, 6rem);
   }
   .player {
@@ -631,20 +568,6 @@ h1 {
 
 .dock-dot.is-active .dock-label { color: var(--ink); }
 
-.dock-dot-cross {
-  margin-top: 0.6rem;
-  padding-top: 0.9rem;
-  border-top: 1px dashed var(--border);
-}
-
-.dock-mark-cross {
-  border-radius: 2px;
-  transform: rotate(45deg);
-}
-.dock-dot-cross:hover .dock-mark-cross {
-  transform: rotate(45deg) scale(1.3);
-}
-
 @media (max-width: 900px) {
   .side-dock { display: none; }
 }
@@ -721,51 +644,12 @@ h1 {
   margin-bottom: 2.6rem;
 }
 
-/* ---------- Stack ---------- */
-
 .content-section {
   position: relative;
   z-index: 3;
   background: var(--bg);
   padding: clamp(3.5rem, 8vw, 6rem) 0;
   border-top: 1px solid var(--border);
-}
-
-.stack-groups {
-  display: grid;
-  gap: clamp(1.6rem, 4vw, 2.4rem);
-}
-
-.stack-group-label {
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--soft);
-  margin-bottom: 0.9rem;
-}
-
-.stack-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-}
-
-.chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.45rem 0.9rem;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--card);
-  font-size: 13px;
-  color: var(--body-text);
-  transition: transform 0.18s ease, border-color 0.18s ease, color 0.18s ease;
-}
-
-.chip:hover {
-  transform: translateY(-2px);
-  border-color: var(--lens-accent);
-  color: var(--ink);
 }
 
 /* ---------- Journal ---------- */
@@ -842,29 +726,12 @@ h1 {
   color: var(--soft);
 }
 
-.footer-links {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
 .footer-top {
   font-size: 12px;
   color: var(--soft);
   text-decoration: none;
 }
 .footer-top:hover { color: var(--ink); }
-
-/* ---------- Secondary-page header (non-sticky, used by /hobbies) ---------- */
-
-.page-intro {
-  padding: clamp(5rem, 12vw, 8rem) 0 clamp(2rem, 5vw, 3rem);
-}
-
-.page-intro .section-title {
-  font-size: clamp(1.8rem, 4.5vw, 2.8rem);
-  max-width: 22ch;
-}
 
 .page-lead {
   font-size: 15px;

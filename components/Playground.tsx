@@ -27,31 +27,6 @@ export function Playground() {
     const icVolOn = muteBtn.querySelector<HTMLElement>(".ic-vol-on")!;
     const icVolOff = muteBtn.querySelector<HTMLElement>(".ic-vol-off")!;
 
-    // Pause the collage videos during playback so audio doesn't stutter from
-    // decode/CPU contention; resume when it ends.
-    const collageVideos = Array.from(document.querySelectorAll<HTMLVideoElement>(".tile video"));
-    let pausedByPlayer: HTMLVideoElement[] = [];
-    let quieted = false;
-    function quietCollage() {
-      if (quieted) return;
-      quieted = true;
-      pausedByPlayer = [];
-      collageVideos.forEach((v) => {
-        if (!v.paused) {
-          pausedByPlayer.push(v);
-          v.pause();
-        }
-      });
-    }
-    function resumeCollage() {
-      quieted = false;
-      pausedByPlayer.forEach((v) => {
-        const p = v.play();
-        if (p && p.catch) p.catch(() => {});
-      });
-      pausedByPlayer = [];
-    }
-
     function setPlayingUI(on: boolean) {
       player!.classList.toggle("is-playing", on);
       icPlay.style.display = on ? "none" : "";
@@ -61,7 +36,6 @@ export function Playground() {
 
     function onPlayClick() {
       if (audio!.paused) {
-        quietCollage();
         const p = audio!.play();
         if (p && p.catch) p.catch(() => {});
       } else {
@@ -97,7 +71,6 @@ export function Playground() {
     }
     function onEnded() {
       setPlayingUI(false);
-      resumeCollage();
     }
     audio.addEventListener("play", onPlay);
     audio.addEventListener("pause", onPause);

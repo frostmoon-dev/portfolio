@@ -114,13 +114,12 @@ export function LensBio() {
   return (
     <div className="bio">
       <p>
-        I like the gap between a screen that technically works and one that doesn&rsquo;t make
-        anyone sigh. That&rsquo;s where I sketch flows, argue about field order, and turn a process
-        nobody enjoys into something that runs quietly in the background.
+        By profession, I&rsquo;m an ERP developer and UI/UX enthusiast. That&rsquo;s not really
+        what this page is about, though.
       </p>
       <div className="lens-host" ref={hostRef}>
         <p>
-          My path runs through{" "}
+          This corner is for the rest of it:{" "}
           <button
             type="button"
             className="lens"
@@ -128,23 +127,22 @@ export function LensBio() {
             aria-expanded="false"
             aria-controls="lensCard"
           >
-            <span className="highlight">ERP systems, interface design, and costume making</span>
+            <span className="highlight">cosplay, games, and way too much anime</span>
           </button>{" "}
-          — not separate jobs, just one habit: build the thing, make it easier to use, then make
-          it yours.
+          — the stuff I actually talk about when nobody&rsquo;s asking about ERP systems.
         </p>
-        <div className="lens-card" id="lensCard" role="group" aria-label="Background" ref={cardRef}>
-          <p className="lens-tag">Day work</p>
+        <div className="lens-card" id="lensCard" role="group" aria-label="Hobbies" ref={cardRef}>
+          <p className="lens-tag">Cosplay</p>
           <div className="lens-items">
-            <p>ERP Developer — purchase orders, stock, month-end close</p>
+            <p>Patterning, foam, paint, and late nights before a convention</p>
           </div>
-          <p className="lens-tag">Practice</p>
+          <p className="lens-tag">Games</p>
           <div className="lens-items">
-            <p>UI/UX design — flows, form layouts, small usability repairs</p>
+            <p>Whatever&rsquo;s currently eating my evenings</p>
           </div>
-          <p className="lens-tag">Off the clock</p>
+          <p className="lens-tag">Watching</p>
           <div className="lens-items">
-            <p>Costume making — patterning, foam, paint, late nights before a convention</p>
+            <p>Anime and manga, always one episode behind</p>
           </div>
         </div>
       </div>

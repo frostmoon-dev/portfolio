@@ -6,10 +6,10 @@ import { Reveal } from "@/components/Reveal";
 const ENTRIES = [
   {
     date: "12 Sep 2026",
-    title: "Closed the books, no tickets",
-    summary: "Month-end ran clean for the first time this quarter. Small win, loud relief.",
+    title: "Finally credits-rolled it",
+    summary: "Sixty-some hours in, and the ending actually landed. Immediately started a new save.",
     detail:
-      "Moved the period-close screen to default to the open period instead of today's date. Two fewer clicks, forty-odd times a month, for everyone on the finance team. Nobody said anything about it, which is exactly how you know it worked.",
+      "The good parts were the quiet parts — walking somewhere for ten minutes, talking to nobody in particular. Already missing having somewhere to be in it.",
   },
   {
     date: "30 Aug 2026",
@@ -20,10 +20,10 @@ const ENTRIES = [
   },
   {
     date: "14 Aug 2026",
-    title: "Redesigned the request form. Again.",
-    summary: "Third pass. Still not perfect, but nobody asked what a field meant this time.",
+    title: "Caught up, for once",
+    summary: "Cleared the whole backlog in a weekend. Immediately started worrying about what's next.",
     detail:
-      "Every version teaches you which field people actually read first. This time it was the amount — so that's what moved to the top. Small, boring, and it's the whole job.",
+      "There's a specific dread that comes with finally finishing a series you've been a year behind on. Now I have to wait for new episodes like everyone else.",
   },
 ];
 
