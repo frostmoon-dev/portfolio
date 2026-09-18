@@ -1,29 +1,30 @@
-/* Palette drawn from the reference illustration: warm charcoal linework,
-   cream paper, and a muted burgundy/dusty-rose accent (the scarf + flower). */
+/* Palette: Sebum #596070, Cartilage #757F99, Substantia Grisea #94A9BE,
+   Lymphatic #B2CDDF, Neutrophils #C9D9E6, Antibiotics #EAF1F1 — a cool
+   blue-grey ramp, darkest to lightest. Role assignments below are checked
+   against WCAG contrast, not just picked by eye (this ramp is narrow
+   enough that some pairings look fine but read poorly). */
 :root {
-  --ink: #1c1613;
-  --soft: #6b5c58;
-  --bg: #fdf9f5;
-  --body-text: #362e2b;
-  --border: #ded0ca;
+  --ink: #596070; /* Sebum — 5.5:1 on bg */
+  --soft: #757F99; /* Cartilage — labels/secondary, 3.5:1 on bg */
+  --bg: #eaf1f1; /* Antibiotics */
+  --body-text: #596070; /* Sebum — Cartilage tested too low-contrast for paragraph copy */
+  --border: #c9d9e6; /* Neutrophils */
   --card: #ffffff;
-  /* Lens stroke - the scarf's burgundy, deep enough to read on cream */
-  --lens-accent: #6b4644;
-  --lens-crest: #d8b8b0;
-  --lens-glow: rgba(107, 70, 68, 0.45);
+  --lens-accent: #757F99; /* Cartilage */
+  --lens-crest: #b2cddf; /* Lymphatic */
+  --lens-glow: rgba(117, 127, 153, 0.45);
 }
 
 :root[data-theme="dark"] {
-  --ink: #f3e9e2;
-  --soft: #a89490;
-  --bg: #16120f;
-  --body-text: #d9cac2;
-  --border: #3c312d;
-  --card: #211b18;
-  /* Lens stroke - lifted to a brighter rose so it still glows on near-black */
-  --lens-accent: #e0a39c;
-  --lens-crest: #f7e0da;
-  --lens-glow: rgba(224, 163, 156, 0.7);
+  --ink: #eaf1f1; /* Antibiotics — 5.5:1 on bg */
+  --soft: #b2cddf; /* Lymphatic — 3.8:1 on bg */
+  --bg: #596070; /* Sebum, the only dark member of the ramp */
+  --body-text: #c9d9e6; /* Neutrophils — 4.4:1 on bg */
+  --border: #94a9be; /* Substantia Grisea */
+  --card: #596070; /* same as bg: Cartilage tested too low-contrast for on-card text, so cards read via border only */
+  --lens-accent: #b2cddf; /* Lymphatic */
+  --lens-crest: #eaf1f1; /* Antibiotics */
+  --lens-glow: rgba(178, 205, 223, 0.7);
 }
 
 * {
@@ -297,8 +298,8 @@ h1 {
 /* ---------- Text highlight ---------- */
 
 .highlight {
-  background: #e6c9c2;
-  color: #2a1a18;
+  background: #b2cddf; /* Lymphatic */
+  color: #596070; /* Sebum — 3.8:1, fine for a short chip, not body copy */
   padding: 0 0.15em;
   border-radius: 2px;
   white-space: nowrap;
