@@ -296,14 +296,15 @@ h1 {
   top: var(--sp-5);
   right: var(--sp-5);
   z-index: 50;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 50%;
+  box-shadow: 0 10px 24px -14px var(--shadow);
   color: var(--soft);
   cursor: pointer;
   transition: color 0.2s ease, border-color 0.2s ease;
@@ -358,6 +359,10 @@ h1 {
 .lens {
   font: inherit;
   color: inherit;
+  /* Buttons centre their text by default, which showed the moment the marked
+     phrase wrapped to a second line on a phone — the tail sat centred under
+     the first line instead of continuing the paragraph. */
+  text-align: left;
   background: none;
   border: 0;
   padding: 0;
@@ -661,7 +666,10 @@ h1 {
 
 @media (max-width: 640px) {
   .playground {
-    padding: clamp(var(--sp-7), 10vw, var(--sp-8)) var(--sp-4) clamp(var(--sp-8), 14vw, var(--sp-9));
+    /* The sleeve is centred on the player's top edge, so it rises half its
+       own height above it — up to 96px. Without that much clearance it
+       climbed out of the section and sat on the divider's words. */
+    padding: clamp(var(--sp-9), 28vw, 112px) var(--sp-4) clamp(var(--sp-8), 14vw, var(--sp-9));
   }
   .player {
     flex-direction: column;
@@ -1249,4 +1257,73 @@ h1 {
 
 @media (prefers-reduced-motion: reduce) {
   .moths { display: none; }
+}
+
+/* ---------- Touch targets ---------- */
+
+/* Every control clears 44px. The player's buttons get there honestly, by
+   being 44px boxes — padding them with invisible pseudo-elements made each
+   one spill into its neighbour's band and squeeze the scrub bar down to a
+   24px strip. The social glyph keeps the pseudo, because it is the one place
+   where growing the box would move the layout around it. */
+.socials a {
+  position: relative;
+}
+
+.socials a::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+}
+
+.icon-btn,
+.ctrl {
+  min-width: 44px;
+  min-height: 44px;
+  /* Above the scrub bar's pad. .progress is positioned, so without this it
+     paints over these static siblings and swallows taps meant for them. */
+  position: relative;
+  z-index: 1;
+}
+
+/* The scrub bar keeps its hairline look but takes drags well above and below
+   it. Its neighbours are now 44px boxes that end where they end, so this can
+   own the whole band between them. */
+.progress {
+  position: relative;
+}
+
+.progress::before {
+  content: "";
+  position: absolute;
+  inset: -20px 0;
+}
+
+/* Text controls simply grow — they sit on their own line. */
+.journal-toggle,
+.footer-top {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* The gap below the entry now lives inside the button's 44px box. */
+.journal-toggle { margin-top: 0; }
+
+/* A 4px scrub bar is fine to click and impossible to thumb. On touch, open
+   the band around it so its pad can reach the full 44px without running
+   into the 44px buttons either side. Keyed to (hover: none) rather than a
+   width, because this is about the pointer, not the screen. */
+@media (hover: none) {
+  .player .progress {
+    margin-top: var(--sp-5);
+    margin-bottom: var(--sp-5);
+  }
+  .progress::before {
+    inset: -20px 0;
+  }
 }
