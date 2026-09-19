@@ -1,30 +1,109 @@
-/* Palette: Raisin Black #282623, Ceil #9997BF, Languid Lavender #D0CBE3,
-   Dark Silver #746D6C, Pastel Blue #ABC1C7. Role assignments checked
-   against WCAG contrast: Ceil and Pastel Blue cluster close in lightness
-   to Languid Lavender, so neither reads well as text on that background —
-   they're used decoratively (border, glow tip) in light mode instead. */
+/* Type: DM Sans for everything that gets read, Pinyon Script for display —
+   the name and the big headings. Both are loaded by next/font in
+   app/layout.tsx, which puts the two --font-* vars on <html>; the stacks
+   below name the fallbacks. */
 :root {
-  --ink: #282623; /* Raisin Black — 9.6:1 on bg */
-  --soft: #746d6c; /* Dark Silver — 3.2:1 on bg */
-  --bg: #d0cbe3; /* Languid Lavender */
-  --body-text: #282623; /* Raisin Black */
-  --border: #9997bf; /* Ceil — too pale to read as text on this bg, fine as a hairline */
-  --card: #ffffff;
-  --lens-accent: #746d6c; /* Dark Silver */
-  --lens-crest: #abc1c7; /* Pastel Blue — decorative glow tip only */
-  --lens-glow: rgba(116, 109, 108, 0.45);
+  --sans: var(--font-sans), "DM Sans", "Segoe UI", system-ui, sans-serif;
+  --script: var(--font-script), "Pinyon Script", "Apple Chancery", cursive;
+}
+
+
+/* Spacing — one scale, built on the 16px module the paper is ruled with.
+
+   The ground is a 16px grid, so any spacing off that module reads as a
+   wobble against it. Every gap, pad and margin below is a whole module or a
+   clean fraction of one; nothing lands between. 1.4rem (22.4px) and 2.6rem
+   (41.6px) were the kind of values that had to go.
+
+   sp-1  4px   quarter   sp-6   32px  2 modules
+   sp-2  8px   half      sp-7   48px  3
+   sp-3  12px  three-qtr sp-8   64px  4
+   sp-4  16px  MODULE    sp-9   96px  6
+   sp-5  24px  1.5       sp-10 128px  8
+
+   Widths are module multiples too: the page is 1088 (68), the hero plate
+   944 (59), the player 400 (25), the journal column 640 (40). */
+:root {
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+  --sp-10: 128px;
+  --page: 1088px; /* 68 modules */
+}
+
+/* Palette — the archive: parchment, oxblood, tan rule, gilt.
+
+   Taken from the reference stylesheet, which is a letterpress/ledger system:
+   a ruled paper ground, cream plates raised off it, warm tan hairlines, one
+   oxblood accent, and gilt kept for ornament only.
+
+     F2EBDD ground      6E1E2B oxblood     2E2A2A ink
+     F8F3EA card        4E1520 pressed     4E4847 body
+     FFFDF8 plate       B8954F gilt        625A57 soft
+     D6C8B2 rule        B9AA93 leader
+
+   Separation here comes from fill plus a 1px ring plus a warm shadow, not
+   from border contrast — that is how the reference does it, and why the tan
+   hairline is allowed to sit quiet at 1.4:1 instead of fighting the paper.
+
+   The dark theme is the same archive at night rather than a second palette:
+   the cream becomes the ink, the ground becomes a warm near-black, and the
+   oxblood lifts to a rose that survives on it. Every text pairing is checked
+   against WCAG AA (4.5:1 body, 3:1 large text); ratios noted beside each. */
+:root {
+  --ink: #2e2a2a; /* 12.0:1 on bg, 14.0:1 on plate */
+  --soft: #625a57; /* 5.7:1 on bg — carries the smallest text */
+  --bg: #f2ebdd; /* parchment */
+  --body-text: #4e4847; /* 7.6:1 on bg */
+  --border: #d6c8b2; /* the tan rule — a quiet hairline by design */
+  --card: #f8f3ea; /* cream, one step off the paper */
+  --plate: #fffdf8; /* the raised plate, for panels that must lift further */
+  --lead: #b9aa93; /* dotted leaders, ticked frames */
+  --gold: #b8954f; /* gilt — ornament only, never text */
+  --grid: rgba(110, 30, 43, 0.16); /* the ruling on the paper */
+  --tick: rgba(110, 30, 43, 0.22); /* the perforation in the stamp frame */
+  --laid: rgba(110, 30, 43, 0.05); /* the tooth of a laid sheet */
+  --chain: rgba(110, 30, 43, 0.1); /* its chain lines, one every 6 modules */
+  --track: color-mix(in srgb, var(--ink) 14%, var(--card));
+  --highlight-bg: #6e1e2b; /* oxblood, exactly as the reference marks things */
+  --highlight-ink: #f8f3ea; /* 10.1:1 on the mark */
+  --lens-accent: #6e1e2b; /* oxblood — 9.4:1 on bg */
+  --lens-accent-strong: #4e1520; /* pressed harder */
+  --lens-crest: #b8954f; /* gilt catches the light at the tip of the sweep */
+  --lens-glow: rgba(110, 30, 43, 0.4);
+  --shadow: rgba(62, 18, 25, 0.35);
+  --shadow-lift: rgba(62, 18, 25, 0.45);
 }
 
 :root[data-theme="dark"] {
-  --ink: #d0cbe3; /* Languid Lavender — 9.6:1 on bg */
-  --soft: #9997bf; /* Ceil — 5.4:1 on bg */
-  --bg: #282623; /* Raisin Black */
-  --body-text: #abc1c7; /* Pastel Blue — 8:1 on bg */
-  --border: #746d6c; /* Dark Silver */
-  --card: #282623; /* same as bg: Dark Silver tested too low-contrast for on-card text, so cards read via border only */
-  --lens-accent: #9997bf; /* Ceil */
-  --lens-crest: #d0cbe3; /* Languid Lavender */
-  --lens-glow: rgba(153, 151, 191, 0.7);
+  --ink: #f2ebdd; /* 15.2:1 on bg, 13.0:1 on plate */
+  --soft: #a99883; /* 6.4:1 on bg */
+  --bg: #1a1614; /* the archive after hours */
+  --body-text: #d6c8b2; /* 10.9:1 on bg */
+  --border: #453b33;
+  --card: #221d1a;
+  --plate: #2a2320;
+  --lead: #5d5045;
+  --gold: #c9a961; /* 8.0:1 — legible enough here to do more than ornament */
+  --grid: rgba(242, 235, 221, 0.055);
+  --tick: rgba(242, 235, 221, 0.16);
+  --laid: rgba(242, 235, 221, 0.035);
+  --chain: rgba(242, 235, 221, 0.06);
+  --track: color-mix(in srgb, #000 32%, var(--card));
+  --highlight-bg: #7e2432;
+  --highlight-ink: #f2ebdd; /* 8.1:1 on the mark */
+  --lens-accent: #cf7a83; /* oxblood lifted to a rose — 5.8:1 on bg, 5.0:1 on plate */
+  --lens-accent-strong: #e0959c;
+  --lens-crest: #c9a961;
+  --lens-glow: rgba(207, 122, 131, 0.5);
+  --shadow: rgba(0, 0, 0, 0.55);
+  --shadow-lift: rgba(0, 0, 0, 0.65);
 }
 
 * {
@@ -33,23 +112,64 @@
   box-sizing: border-box;
 }
 
-html {
-  background: var(--bg);
+/* Two surfaces, alternating down the page.
+
+   The ledger is the ground: the 16px ruling, squared from the reference's
+   single axis. Everything that sits directly on the page shows it — the
+   hero, the dividers between sections, the footer.
+
+   Laid paper is a sheet dropped on top of it: the fine horizontal tooth of
+   a laid mould every 4px, and its chain lines every 96px (6 modules). Real
+   papermaking texture, and unmistakably not a grid, which is the point —
+   the two surfaces have to read as different stock, not different opacity.
+
+   Sections alternate via :nth-of-type rather than a class per component, so
+   reordering them in page.tsx keeps the alternation intact instead of
+   stranding two sheets side by side. Counting the <section> children of
+   body: cosplay 1, games 2, watching 3, journal 4, message 5 — odd ones
+   take paper, even ones stay on the ledger.
+
+   Both are background-attachment: fixed so the ruling and the tooth stay in
+   register across every section boundary instead of restarting at each. */
+html,
+.divider,
+.content-section:nth-of-type(even),
+.site-footer {
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 16px),
+    repeating-linear-gradient(0deg, var(--grid) 0 1px, transparent 1px 16px);
+  background-attachment: fixed;
+}
+
+.content-section:nth-of-type(odd),
+.playground {
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(90deg, var(--chain) 0 1px, transparent 1px 96px),
+    repeating-linear-gradient(0deg, var(--laid) 0 1px, transparent 1px 4px);
+  background-attachment: fixed;
+  /* The cut edges of the sheet. */
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 body {
-  background: var(--bg);
+  background: transparent;
   color: var(--ink);
-  font-family: ui-monospace, "SF Mono", "Menlo", "Monaco", "Cascadia Code", "Roboto Mono", monospace;
+  font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
-  line-height: 1.6;
-  transition: background 0.25s ease, color 0.25s ease;
+  /* Unitless, not px: this cascades into the fluid display sizes, and a
+     fixed value there collapses their line boxes. 1.5 is exactly 24px —
+     1.5 modules — at the 16px root, which is what body copy inherits. */
+  line-height: 1.5;
+  transition: color 0.25s ease;
 }
 
 .wrap {
-  max-width: 1080px;
+  max-width: var(--page);
   margin: 0 auto;
-  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  padding: 0 clamp(var(--sp-5), 5vw, var(--sp-8));
 }
 
 /* ---------- Intro ---------- */
@@ -60,21 +180,56 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(3rem, 8vw, 6rem) 0;
+  padding: clamp(var(--sp-7), 8vw, var(--sp-9)) 0;
 }
 
+/* The hero sits in a stamp frame: a 16px transparent border painted with a
+   half-on/half-off gradient, so the edge reads as perforation. The inner
+   hairline gives the double-frame every plate in the reference has. */
 .hero {
+  position: relative;
   width: 100%;
-  max-width: 680px;
+  max-width: 944px; /* 59 modules */
   margin: 0 auto;
   text-align: left;
+  border: 16px solid transparent;
+  border-radius: 4px;
+  /* Wide and shallow: horizontal padding runs well ahead of vertical so the
+     plate sits landscape rather than square, the way a printed page does. */
+  padding: clamp(var(--sp-5), 3vw, var(--sp-6)) clamp(var(--sp-5), 10vw, var(--sp-10));
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(90deg, var(--tick) 50%, transparent 50%) 0 0 / 16px 16px border-box,
+    linear-gradient(var(--tick) 50%, transparent 50%) 0 0 / 16px 16px border-box,
+    linear-gradient(var(--card), var(--card)) border-box;
+  box-shadow: 0 0 0 1px var(--border), 0 10px 24px -14px var(--shadow);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid var(--lead);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+@media (max-width: 560px) {
+  .hero {
+    border-width: 12px;
+    padding: var(--sp-4);
+  }
+  .hero::before { inset: 6px; }
 }
 
 h1 {
   font-size: clamp(1.5rem, 6vw, 3.6rem);
-  font-weight: 600;
+  font-weight: 500;
+  /* Display type is optically sized, so it takes a ratio rather than module
+     leading — a fixed step would wreck it across the clamp range. */
+  line-height: 1.1;
   letter-spacing: -0.02em;
-  margin-bottom: 1.2rem;
+  margin-bottom: var(--sp-5);
 }
 
 /* Only the intro's name/role swap needs to stay on one line (so the
@@ -84,19 +239,12 @@ h1 {
   white-space: nowrap;
 }
 
-.zh {
-  color: var(--ink);
-  font-weight: 400;
-  font-size: 0.7em;
-  vertical-align: middle;
-}
-
 .socials {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1.4rem;
-  margin-bottom: 2.4rem;
+  gap: var(--sp-5);
+  margin-bottom: var(--sp-6);
 }
 
 .socials a {
@@ -113,24 +261,43 @@ h1 {
 }
 
 .socials svg {
-  width: 19px;
-  height: 19px;
+  width: 20px;
+  height: 20px;
 }
 
+/* No max-width here: the plate's generous side padding is what sets the
+   column, so the text fills its margins instead of stopping short of them.
+   18px because this is the page's opening statement, and because at 16px a
+   column this wide ran to nearly 100 characters a line. */
 .bio { max-width: none; }
-.bio p { font-size: 15px; color: var(--body-text); }
-.bio p + p { margin-top: 1.1rem; }
+.bio p {
+  /* Discrete rather than fluid, so the leading can land exactly on the
+     module: 16/24 on a phone, 18/32 once the plate is wide enough to earn
+     it. A clamped size puts the baseline somewhere between the rules at
+     every width in between, which is the one thing this ground shows up. */
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--body-text);
+}
+
+@media (min-width: 720px) {
+  .bio p {
+    font-size: 18px;
+    line-height: 32px; /* 2 modules */
+  }
+}
+.bio p + p { margin-top: var(--sp-4); }
 .accent { color: var(--ink); font-style: italic; }
 
 /* ---------- Theme toggle ---------- */
 
 .theme-toggle {
   position: fixed;
-  top: 1.5rem;
-  right: 1.5rem;
+  top: var(--sp-5);
+  right: var(--sp-5);
   z-index: 50;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -142,19 +309,38 @@ h1 {
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 .theme-toggle:hover { color: var(--ink); border-color: var(--ink); }
-.theme-toggle svg { width: 18px; height: 18px; }
+.theme-toggle svg { width: 20px; height: 20px; }
 .theme-toggle .icon-sun { display: none; }
 :root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 :root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 
 /* ---------- Name 3D swap ---------- */
 
+/* The name is the one thing set in script. Pinyon Script runs small against
+   DM Serif Text and needs air, so the whole swap is scaled up by
+   --name-scale and the h1's negative tracking is undone. Children that
+   aren't the name — the role glyphs that morph in on hover — divide
+   that scale back out and return to the serif. Doing it
+   per-glyph rather than on the container is what keeps the letter-by-letter
+   flip clean: each glyph changes face at the moment it's edge-on. */
 .swap {
+  --name-scale: 1.3;
   display: inline-block;
   perspective: 900px;
   white-space: nowrap;
   cursor: pointer;
+  font-family: var(--script);
+  font-size: calc(1em * var(--name-scale));
+  letter-spacing: 0.015em;
+  padding-right: 0.04em; /* script terminals overhang their advance width */
 }
+
+.swap .slot.glyph-sans {
+  font-family: var(--sans);
+  font-size: calc(1em / var(--name-scale));
+  letter-spacing: -0.02em;
+}
+
 .swap .slot {
   display: inline-block;
   white-space: pre;
@@ -166,8 +352,8 @@ h1 {
 /* ---------- Lens: hover/tap the highlighted words for experience ---------- */
 
 .lens-host { position: relative; }
-.bio p + .lens-host { margin-top: 1.1rem; }
-.lens-host + p { margin-top: 1.1rem; }
+.bio p + .lens-host { margin-top: var(--sp-4); }
+.lens-host + p { margin-top: var(--sp-4); }
 
 .lens {
   font: inherit;
@@ -184,20 +370,20 @@ h1 {
 
 .lens-card {
   position: absolute;
-  bottom: calc(100% + 0.7rem);
+  bottom: calc(100% + var(--sp-3));
   left: 0;
   z-index: 5;
   max-width: min(100%, 560px);
-  background: var(--card);
+  background: var(--plate);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1.15rem;
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
+  border-radius: 4px;
+  padding: var(--sp-4);
+  box-shadow: 0 10px 24px -14px var(--shadow);
 
   display: grid;
   grid-template-columns: max-content minmax(0, max-content);
-  column-gap: 1.25rem;
-  row-gap: 1rem;
+  column-gap: var(--sp-5);
+  row-gap: var(--sp-4);
   align-items: start;
 
   opacity: 0;
@@ -218,7 +404,7 @@ h1 {
   content: "";
   position: absolute;
   inset: -1px;
-  border-radius: 11px;
+  border-radius: 5px;
   padding: 1.5px;
   background: conic-gradient(
     from var(--lens-angle),
@@ -262,30 +448,30 @@ h1 {
 
 .lens-card .lens-tag,
 .lens-items p {
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 15px;
+  line-height: 24px; /* 15px text, 1.5 modules */
 }
 
-.lens-card .lens-tag { letter-spacing: 0.1em; text-transform: uppercase; color: var(--soft); }
+.lens-card .lens-tag { font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--soft); }
 .lens-items p { color: var(--body-text); }
 .lens-card p + p { margin-top: 0; }
 
 @media (max-width: 560px) {
-  .lens-card { grid-template-columns: 1fr; row-gap: 0.2rem; padding: 1rem; }
-  .lens-card .lens-tag { margin-top: 0.8rem; }
+  .lens-card { grid-template-columns: 1fr; row-gap: var(--sp-1); padding: var(--sp-4); }
+  .lens-card .lens-tag { margin-top: var(--sp-3); }
   .lens-card .lens-tag:first-child { margin-top: 0; }
 
   .lens-items p {
     position: relative;
-    padding-left: 0.9rem;
+    padding-left: var(--sp-4);
   }
   .lens-items p::before {
     content: "";
     position: absolute;
     left: 0;
     top: 0.69em;
-    width: 3px;
-    height: 3px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
     background: var(--soft);
   }
@@ -298,9 +484,9 @@ h1 {
 /* ---------- Text highlight ---------- */
 
 .highlight {
-  background: #abc1c7; /* Pastel Blue */
-  color: #282623; /* Raisin Black — 8:1 */
-  padding: 0 0.15em;
+  background: var(--highlight-bg);
+  color: var(--highlight-ink);
+  padding: 0.05em 0.2em;
   border-radius: 2px;
   white-space: nowrap;
 }
@@ -318,26 +504,25 @@ h1 {
 /* ---------- Playground: spin-to-play CD ---------- */
 
 .playground {
-  border-top: 1px solid var(--border);
-  background: var(--bg);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(1.4rem, 4vw, 2.4rem);
-  padding: clamp(3.5rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem);
+  gap: clamp(var(--sp-5), 4vw, var(--sp-6));
+  padding: clamp(var(--sp-4), 3vw, var(--sp-6)) clamp(var(--sp-5), 5vw, var(--sp-8))
+    clamp(var(--sp-7), 8vw, var(--sp-9));
 }
 .player {
   position: relative;
   display: flex;
   align-items: center;
-  width: min(88vw, calc(100vw - 68px), 400px);
-  background: #ffffff;
-  border: none;
-  border-radius: 20px;
-  padding: 14px 24px 6px;
-  padding-left: clamp(112px, 30vw, 134px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+  width: min(88vw, calc(100vw - var(--sp-8)), 400px); /* 400 = 25 modules */
+  background: var(--plate);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: var(--sp-4) var(--sp-5) var(--sp-2);
+  padding-left: clamp(112px, 30vw, 128px);
+  box-shadow: 0 10px 24px -14px var(--shadow);
 }
 
 .player-art {
@@ -345,11 +530,11 @@ h1 {
   left: clamp(-48px, -6.5vw, -32px);
   top: 50%;
   transform: translateY(-50%);
-  width: clamp(126px, 34vw, 158px);
-  height: clamp(126px, 34vw, 158px);
+  width: clamp(128px, 34vw, 160px);
+  height: clamp(128px, 34vw, 160px);
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 24px -12px var(--shadow-lift);
 }
 .player-art .art-img {
   width: 100%;
@@ -369,7 +554,7 @@ h1 {
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: var(--bg);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 0 1px var(--border);
 }
 @keyframes cdspin { to { transform: rotate(360deg); } }
 
@@ -378,21 +563,21 @@ h1 {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 10px;
+  gap: var(--sp-2);
 }
 .player-title {
-  font-family: ui-monospace, "SF Mono", "Menlo", "Monaco", "Cascadia Code", "Roboto Mono", monospace;
-  font-size: clamp(0.82rem, 1.8vw, 0.92rem);
-  font-weight: 400;
-  color: #1a1a1a;
+  font-family: var(--sans);
+  font-size: clamp(0.88rem, 1.8vw, 1rem);
+  font-weight: 500;
+  color: var(--ink);
   line-height: 1.2;
 }
 .player-sub {
-  font-family: ui-monospace, "SF Mono", "Menlo", "Monaco", "Cascadia Code", "Roboto Mono", monospace;
-  font-size: clamp(0.66rem, 1.5vw, 0.75rem);
+  font-family: var(--sans);
+  font-size: clamp(0.74rem, 1.5vw, 0.82rem);
   font-weight: 400;
-  color: #6b6b6b;
-  margin-top: 2px;
+  color: var(--soft);
+  margin-top: var(--sp-1);
 }
 
 .icon-btn {
@@ -402,20 +587,20 @@ h1 {
   justify-content: center;
   background: none;
   border: none;
-  color: #9a9a9a;
+  color: var(--soft);
   cursor: pointer;
   padding: 2px 0;
   border-radius: 50%;
   transition: color 0.2s ease;
 }
-.icon-btn:hover { color: #1a1a1a; }
+.icon-btn:hover { color: var(--ink); }
 .icon-btn svg { width: 18px; height: 18px; display: block; }
 
 .progress {
   position: relative;
-  height: 5px;
-  margin: 16px 6px 7px 0;
-  background: #e7e7e2;
+  height: 4px;
+  margin: var(--sp-4) var(--sp-2) var(--sp-2) 0;
+  background: var(--track);
   border-radius: 999px;
   cursor: pointer;
   touch-action: none;
@@ -426,8 +611,9 @@ h1 {
   left: 0;
   height: 100%;
   width: 0%;
-  min-width: 6px;
-  background: #1a1a1a;
+  /* Half the knob, so it sits flush at 0% instead of hanging off the left. */
+  min-width: calc(var(--sp-3) / 2);
+  background: var(--lens-accent);
   border-radius: 999px;
 }
 .progress-fill::after {
@@ -435,10 +621,10 @@ h1 {
   position: absolute;
   left: 100%;
   top: 50%;
-  width: 12px;
-  height: 12px;
+  width: var(--sp-3);
+  height: var(--sp-3);
   transform: translate(-50%, -50%);
-  background: #1a1a1a;
+  background: var(--lens-accent);
   border-radius: 50%;
 }
 
@@ -453,7 +639,7 @@ h1 {
   justify-content: center;
   background: none;
   border: none;
-  color: #1a1a1a;
+  color: var(--ink);
   cursor: pointer;
   padding: 4px;
   border-radius: 50%;
@@ -471,16 +657,16 @@ h1 {
 #heartLeft { margin-left: -4px; }
 .ctrl:focus-visible,
 .icon-btn:focus-visible,
-.progress:focus-visible { outline: 2px solid #1a1a1a; outline-offset: 3px; }
+.progress:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 
 @media (max-width: 640px) {
   .playground {
-    padding: clamp(3rem, 10vw, 4.5rem) 1.25rem clamp(4rem, 14vw, 6rem);
+    padding: clamp(var(--sp-7), 10vw, var(--sp-8)) var(--sp-4) clamp(var(--sp-8), 14vw, var(--sp-9));
   }
   .player {
     flex-direction: column;
-    width: min(88vw, 360px);
-    padding: clamp(92px, 25vw, 108px) 22px 16px;
+    width: min(88vw, 352px); /* 22 modules */
+    padding: clamp(96px, 25vw, 112px) var(--sp-5) var(--sp-4);
   }
   .player .progress { margin: 12px 6px 6px 0; }
   .player-art {
@@ -488,8 +674,8 @@ h1 {
     top: 0;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: clamp(152px, 44vw, 188px);
-    height: clamp(152px, 44vw, 188px);
+    width: clamp(160px, 44vw, 192px);
+    height: clamp(160px, 44vw, 192px);
     margin: 0;
   }
   .player-body { width: 100%; }
@@ -516,26 +702,26 @@ h1 {
 
 .side-dock {
   position: fixed;
-  left: 1.75rem;
+  left: var(--sp-5);
   top: 50%;
   transform: translateY(-50%);
   z-index: 55;
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: var(--sp-4);
 }
 
 .dock-dot {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: var(--sp-2);
   text-decoration: none;
   color: var(--soft);
 }
 
 .dock-mark {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   border: 1px solid var(--soft);
   background: transparent;
@@ -551,7 +737,8 @@ h1 {
 }
 
 .dock-label {
-  font-size: 11px;
+  font-weight: 500;
+  font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0;
@@ -577,18 +764,18 @@ h1 {
 
 .status-gadget {
   position: fixed;
-  left: 1.5rem;
-  bottom: 1.5rem;
+  left: var(--sp-5);
+  bottom: var(--sp-5);
   z-index: 55;
   display: flex;
   align-items: center;
-  gap: 0.55rem;
-  padding: 0.5rem 0.85rem;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 999px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  font-size: 11px;
+  border-radius: 4px;
+  box-shadow: 0 10px 24px -14px var(--shadow);
+  font-size: 12px;
   letter-spacing: 0.04em;
   color: var(--soft);
   opacity: 1;
@@ -604,8 +791,8 @@ h1 {
 }
 
 .status-blink {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: var(--lens-accent);
   flex: none;
@@ -624,33 +811,47 @@ h1 {
 }
 
 @media (max-width: 640px) {
-  .status-gadget { left: 1rem; bottom: 1rem; padding: 0.45rem 0.7rem; font-size: 10px; }
+  .status-gadget { left: var(--sp-4); bottom: var(--sp-4); padding: var(--sp-2) var(--sp-3); font-size: 12px; }
 }
 
 /* ---------- Shared section chrome for Stack / Journal ---------- */
 
+/* Kickers as stamps — the reference's inline bordered label, which reads as
+   something inked onto the page rather than a caption floating above it. */
 .section-kicker {
-  font-size: 11px;
-  letter-spacing: 0.2em;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--soft);
-  margin-bottom: 0.6rem;
+  color: var(--lens-accent);
+  border: 1px solid var(--lens-accent);
+  border-radius: 4px;
+  padding: var(--sp-1) var(--sp-3);
+  margin-bottom: var(--sp-4);
 }
 
+/* The big captions, in script. Pinyon has a small x-height and no weight
+   above 400, so it needs roughly 1.7x the size a sans would take here to
+   carry the same presence — and positive tracking, since the h2's usual
+   negative tracking would collide the joins. Reserved for headings this
+   large; anything smaller goes back to the sans, where it can be read. */
 .section-title {
-  font-size: clamp(1.4rem, 3.2vw, 2rem);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  max-width: 26ch;
-  margin-bottom: 2.6rem;
+  font-family: var(--script);
+  font-size: clamp(2.3rem, 5.6vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+  max-width: 22ch;
+  margin-bottom: var(--sp-7);
 }
 
 .content-section {
   position: relative;
   z-index: 3;
-  background: var(--bg);
-  padding: clamp(3.5rem, 8vw, 6rem) 0;
-  border-top: 1px solid var(--border);
+  /* Top padding is light: the divider above already supplies the air. */
+  padding: clamp(var(--sp-4), 3vw, var(--sp-6)) 0 clamp(var(--sp-7), 8vw, var(--sp-9));
+  /* No border-top — the boho divider is the separator now. */
 }
 
 /* ---------- Journal ---------- */
@@ -662,38 +863,40 @@ h1 {
 }
 
 .journal-entry {
-  padding: 1.6rem 0;
-  border-top: 1px dashed var(--border);
+  padding: var(--sp-5) 0;
+  border-top: 1px dotted var(--lead);
 }
 .journal-entry:first-child { border-top: none; padding-top: 0; }
 
 .journal-date {
-  font-size: 11px;
+  font-weight: 500;
+  font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--soft);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--sp-2);
 }
 
 .journal-title {
   font-size: 1.15rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--sp-2);
 }
 
 .journal-summary,
 .journal-detail {
-  font-size: 14px;
-  line-height: 1.7;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  line-height: 24px;
   color: var(--body-text);
 }
 
-.journal-detail { margin-top: 0.7rem; }
+.journal-detail { margin-top: var(--sp-3); }
 
 .journal-toggle {
-  margin-top: 0.8rem;
+  margin-top: var(--sp-3);
   font: inherit;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--lens-accent);
@@ -709,9 +912,8 @@ h1 {
 .site-footer {
   position: relative;
   z-index: 3;
-  background: var(--bg);
-  border-top: 1px solid var(--border);
-  padding: 2rem 0;
+  /* No edge of its own: the playground sheet above already ends on one. */
+  padding: var(--sp-6) 0;
 }
 
 .footer-inner {
@@ -719,35 +921,35 @@ h1 {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: var(--sp-4);
 }
 
 .footer-line {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--soft);
 }
 
 .footer-top {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--soft);
   text-decoration: none;
 }
 .footer-top:hover { color: var(--ink); }
 
 .page-lead {
-  font-size: 15px;
-  line-height: 1.75;
+  font-size: 16px;
+  line-height: 28px; /* 16px lead, 1.75 modules */
   color: var(--body-text);
   max-width: 60ch;
-  margin-bottom: 2.4rem;
+  margin-bottom: var(--sp-6);
 }
 
 /* ---------- Cosplay gallery ---------- */
 
 .cosplay-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fill, minmax(208px, 1fr));
+  gap: var(--sp-4);
 }
 
 .cosplay-card { display: block; }
@@ -757,11 +959,11 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px dashed var(--border);
-  border-radius: 10px;
+  border: 1px dotted var(--lead);
+  border-radius: 4px;
   background: color-mix(in srgb, var(--ink) 5%, transparent);
   color: var(--soft);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   overflow: hidden;
@@ -775,8 +977,9 @@ h1 {
 }
 
 .cosplay-caption {
-  margin-top: 0.6rem;
-  font-size: 12px;
+  font-weight: 500;
+  margin-top: var(--sp-2);
+  font-size: 13px;
   color: var(--soft);
 }
 
@@ -784,75 +987,266 @@ h1 {
 
 .games-groups {
   display: grid;
-  gap: clamp(1.8rem, 4vw, 2.6rem);
+  gap: clamp(var(--sp-6), 4vw, var(--sp-7));
 }
 
 .games-group-label {
-  font-size: 12px;
+  font-weight: 500;
+  font-size: 13px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--soft);
-  margin-bottom: 1rem;
+  margin-bottom: var(--sp-4);
 }
 
 .games-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(224px, 1fr));
+  gap: var(--sp-4);
 }
 
 .game-card {
-  padding: 1rem 1.1rem;
+  padding: var(--sp-4);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 4px;
   background: var(--card);
+  box-shadow: 0 10px 24px -14px var(--shadow);
   transition: transform 0.18s ease, border-color 0.18s ease;
 }
 .game-card:hover { transform: translateY(-2px); border-color: var(--lens-accent); }
 
 .game-title {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
-  margin-bottom: 0.3rem;
+  margin-bottom: var(--sp-1);
 }
 
 .game-note {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--soft);
-  line-height: 1.5;
+  line-height: 20px; /* 13px note, 1.25 modules */
 }
 
 /* ---------- Watching / reading ---------- */
 
 .watch-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
+  gap: var(--sp-4);
 }
 
 .watch-card {
-  padding: 1.4rem;
+  padding: var(--sp-5);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 4px;
   background: var(--card);
+  box-shadow: 0 10px 24px -14px var(--shadow);
 }
 
 .watch-kicker {
-  font-size: 11px;
+  font-weight: 500;
+  font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--soft);
-  margin-bottom: 0.7rem;
+  margin-bottom: var(--sp-3);
 }
 
 .watch-title {
   font-size: 1.05rem;
   font-weight: 600;
-  margin-bottom: 0.4rem;
+  margin-bottom: var(--sp-2);
 }
 
 .watch-note {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--body-text);
-  line-height: 1.6;
+  line-height: 20px;
+}
+
+/* ---------- Boho section divider ---------- */
+
+/* Matches .wrap's metrics so the rules end where section content ends. */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: clamp(var(--sp-3), 2.2vw, var(--sp-5));
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: clamp(var(--sp-5), 3.5vw, var(--sp-6)) clamp(var(--sp-5), 5vw, var(--sp-8));
+  color: var(--lens-accent);
+}
+
+/* A stitched line rather than a hairline — the run of dashes is what gives
+   the border its woven, hand-made read. clip-path reveals it instead of
+   scaleX, which would stretch the dashes flat and snap them back. */
+.divider-rule {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    currentColor 0 5px,
+    transparent 5px 11px
+  );
+  opacity: 0.75;
+  transition: clip-path 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Left rule: an even stitch, still holding. */
+.divider-rule.is-left {
+  clip-path: inset(0 0 0 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 55%);
+          mask-image: linear-gradient(to right, transparent, #000 55%);
+}
+
+/* Right rule: the same stitch coming apart — irregular gaps, shorter
+   fragments. It matches the cracked wing on that side of the moth. */
+.divider-rule.is-right {
+  background: repeating-linear-gradient(
+    to right,
+    currentColor 0 5px,
+    transparent 5px 11px,
+    currentColor 11px 13px,
+    transparent 13px 25px,
+    currentColor 25px 28px,
+    transparent 28px 34px
+  );
+  clip-path: inset(0 100% 0 0);
+  -webkit-mask-image: linear-gradient(to left, transparent, #000 55%);
+          mask-image: linear-gradient(to left, transparent, #000 55%);
+}
+
+.divider.is-visible .divider-rule { clip-path: inset(0 0 0 0); }
+
+/* The transition words are display text too, so they take the script — but
+   scaled well past their old size, since Pinyon at 1.15rem is unreadable. */
+.divider-word {
+  flex: none;
+  font-family: var(--script);
+  font-size: clamp(1.5rem, 3.4vw, 1.95rem);
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.7s ease 0.25s,
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.25s;
+}
+
+/* Each word arrives from its own side, toward the ornament between them. */
+.divider-word.is-from { transform: translateX(-10px); }
+.divider-word.is-to { transform: translateX(10px); }
+
+.divider.is-visible .divider-word {
+  opacity: 1;
+  transform: none;
+}
+
+.divider-orn {
+  flex: none;
+  /* Darker than the rules: in light mode this makes the moth read as a
+     black silhouette, which is the whole Oberon image. Matches the
+     drifting moths, which use the same token. */
+  color: var(--ink);
+  display: block;
+  opacity: 0;
+  transform: scale(0.4) rotate(-40deg);
+  transition: opacity 0.6s ease 0.12s,
+    transform 0.75s cubic-bezier(0.22, 0.61, 0.36, 1) 0.12s;
+}
+
+.divider.is-visible .divider-orn {
+  opacity: 1;
+  transform: none;
+}
+
+.divider-orn svg {
+  display: block;
+  width: clamp(56px, 12vw, 80px);
+  height: auto;
+}
+
+/* The rules have little room left once the words are in; drop them and let
+   the ornament carry the divider on its own. */
+@media (max-width: 560px) {
+  /* With the rules gone, the words and ornament have to centre themselves. */
+  .divider { gap: var(--sp-2); justify-content: center; }
+  .divider-rule { display: none; }
+  .divider-word { font-size: 1.35rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .divider-rule,
+  .divider-word,
+  .divider-orn {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    transition: none;
+  }
+  .divider-rule { opacity: 0.75; }
+}
+
+/* ---------- Oberon's moths ---------- */
+
+/* Above the sections (z-index 3) because they paint opaque backgrounds —
+   a layer underneath would simply never be seen. Kept faint enough that
+   drifting over body copy reads as atmosphere, not interference. */
+.moths {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.moth {
+  position: absolute;
+  top: -8vh;
+  display: block;
+  width: 48px;
+  color: var(--ink);
+  opacity: 0.085;
+  will-change: transform;
+  animation-name: moth-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* Every third one is gilt instead, so a little of the ornament is drifting
+   through the page and not only pinned inside the dividers. */
+.moth:nth-child(3n) {
+  color: var(--gold);
+  opacity: 0.13;
+}
+
+.moth svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: scale(var(--moth-scale, 1));
+}
+
+/* Down the page with a slow lateral sway, tipping as it goes — a fall
+   rather than a flight. */
+@keyframes moth-fall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-12deg);
+  }
+  50% {
+    transform: translate3d(var(--moth-drift, 30px), 60vh, 0) rotate(9deg);
+  }
+  100% {
+    transform: translate3d(0, 120vh, 0) rotate(-6deg);
+  }
+}
+
+@media (max-width: 640px) {
+  /* Less room to drift through, and more of the text is in their path. */
+  .moth { width: 32px; }
+  .moth:nth-child(n + 4) { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moths { display: none; }
 }

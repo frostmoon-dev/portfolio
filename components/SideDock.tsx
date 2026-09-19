@@ -3,12 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 
 const SECTIONS = [
-  { id: "top", label: "Intro" },
-  { id: "cosplay", label: "Cosplay" },
-  { id: "games", label: "Games" },
-  { id: "watching", label: "Watching" },
-  { id: "journal", label: "Journal" },
-  { id: "message", label: "Message" },
+  { id: "top", label: "Waking" },
+  { id: "cosplay", label: "Skins" },
+  { id: "games", label: "Dreams" },
+  { id: "watching", label: "Tales" },
+  { id: "journal", label: "Chronicle" },
+  { id: "message", label: "Lullaby" },
 ];
 
 export function SideDock() {

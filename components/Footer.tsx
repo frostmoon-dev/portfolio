@@ -5,7 +5,7 @@ export function Footer() {
     <Reveal as="footer" className="site-footer">
       <div className="wrap footer-inner">
         <p className="footer-line">
-          Kept by hand · Teha<span className="zh">(テハ)</span> · {new Date().getFullYear()}
+          Kept by hand · Teha · {new Date().getFullYear()}
         </p>
         <a href="#top" className="footer-top">
           Back to top ↑

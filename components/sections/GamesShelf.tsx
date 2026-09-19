@@ -32,13 +32,14 @@ export function GamesShelf() {
     <section id="games" className="content-section">
       <div className="wrap">
         <Reveal as="p" className="section-kicker">
-          Games
+          Dreams on loop
         </Reveal>
         <Reveal as="h2" className="section-title" delayMs={60}>
-          What's currently eating my evenings.
+          Worlds I keep walking back into.
         </Reveal>
         <Reveal as="p" className="page-lead" delayMs={100}>
-          Mostly whatever lets me turn my brain off after a day of turning it very much on.
+          Mostly whatever lets me turn my brain off after a day of turning it very much on —
+          somewhere to be that isn&rsquo;t here.
         </Reveal>
 
         <div className="games-groups">

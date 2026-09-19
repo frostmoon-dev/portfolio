@@ -38,10 +38,10 @@ export function Journal() {
     <section id="journal" className="content-section">
       <div className="wrap">
         <Reveal as="p" className="section-kicker">
-          Journal
+          The chronicle
         </Reveal>
         <Reveal as="h2" className="section-title" delayMs={60}>
-          A few entries, kept mostly for myself.
+          Entries kept mostly for myself, against forgetting.
         </Reveal>
 
         <div className="journal-list">

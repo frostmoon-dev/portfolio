@@ -19,14 +19,14 @@ export function CosplayGallery() {
     <section id="cosplay" className="content-section">
       <div className="wrap">
         <Reveal as="p" className="section-kicker">
-          Cosplay
+          Borrowed skins
         </Reveal>
         <Reveal as="h2" className="section-title" delayMs={60}>
-          Builds, in progress and finished.
+          Shapes I&rsquo;ve worn, and the ones still half-made.
         </Reveal>
         <Reveal as="p" className="page-lead" delayMs={100}>
-          Patterning, foam, paint, and whatever it takes to make a costume hold together for one
-          convention weekend.
+          Patterning, foam, paint, and whatever it takes to hold a borrowed shape together for
+          one convention weekend.
         </Reveal>
 
         <RevealStagger className="cosplay-grid" stepMs={50}>

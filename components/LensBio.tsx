@@ -132,15 +132,15 @@ export function LensBio() {
           — the stuff I actually talk about when nobody&rsquo;s asking about ERP systems.
         </p>
         <div className="lens-card" id="lensCard" role="group" aria-label="Hobbies" ref={cardRef}>
-          <p className="lens-tag">Cosplay</p>
+          <p className="lens-tag">Borrowed skins</p>
           <div className="lens-items">
             <p>Patterning, foam, paint, and late nights before a convention</p>
           </div>
-          <p className="lens-tag">Games</p>
+          <p className="lens-tag">Dreams on loop</p>
           <div className="lens-items">
             <p>Whatever&rsquo;s currently eating my evenings</p>
           </div>
-          <p className="lens-tag">Watching</p>
+          <p className="lens-tag">Told to me</p>
           <div className="lens-items">
             <p>Anime and manga, always one episode behind</p>
           </div>

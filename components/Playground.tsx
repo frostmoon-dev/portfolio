@@ -163,7 +163,7 @@ export function Playground() {
   }, []);
 
   return (
-    <section id="message" className="playground" aria-label="A message from Teha">
+    <section id="message" className="playground" aria-label="A lullaby from Teha">
       <div className="player" id="player" ref={playerRef}>
         <div className="player-art">
           <img className="art-img" src="/images/avatar.png" alt="" />
@@ -172,7 +172,7 @@ export function Playground() {
         <div className="player-body">
           <div className="player-top">
             <div className="player-meta">
-              <p className="player-title">Message</p>
+              <p className="player-title">Lullaby</p>
               <p className="player-sub">From Teha</p>
             </div>
             <button className="icon-btn" ref={muteBtnRef} type="button" aria-label="Mute">

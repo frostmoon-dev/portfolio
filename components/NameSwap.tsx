@@ -2,22 +2,24 @@
 
 import { useEffect, useRef } from "react";
 
-type Glyph = { html: string; cls?: "zh" | "accent" };
+// cls also carries typography: the name renders in the script face set on
+// .swap, while "glyph-sans" hands a slot back to the body sans. Tagging it
+// per glyph means each letter changes face mid-flip, while it's edge-on.
+type Glyph = { html: string; cls?: "accent" | "glyph-sans" };
 
-const NBSP = " ";
+const NBSP = " ";
 
-// "Teha" has no established kanji — テハ is a phonetic katakana rendering
-// (how a non-native name is normally written in Japanese), not a translation.
 const NAME: Glyph[] = [
   { html: "T" },
   { html: "e" },
   { html: "h" },
   { html: "a" },
-  { html: "(テハ)", cls: "zh" },
 ];
 
+// The role isn't a name, so it stays in the sans the rest of the page uses.
 const ROLE: Glyph[] = "an erp + ux dev".split("").map((ch) => ({
   html: ch === " " ? NBSP : ch,
+  cls: "glyph-sans" as const,
 }));
 
 export function NameSwap() {
@@ -50,8 +52,8 @@ export function NameSwap() {
       slot.style.transform = "rotateX(-90deg)";
       setTimeout(() => {
         slot.innerHTML = target.html;
-        slot.classList.toggle("zh", target.cls === "zh");
-        slot.classList.toggle("accent", target.cls === "accent");
+        // Reassign wholesale so the outgoing glyph's class never lingers.
+        slot.className = target.cls ? "slot " + target.cls : "slot";
         slot.style.transform = "rotateX(90deg)";
         requestAnimationFrame(() => {
           slot.style.transform = "rotateX(0deg)";
@@ -163,7 +165,7 @@ export function NameSwap() {
     <h1 ref={h1Ref}>
       I&rsquo;m{" "}
       <span className="swap" ref={swapRef}>
-        Teha<span className="zh">(テハ)</span>
+        Teha
       </span>
       .
     </h1>
