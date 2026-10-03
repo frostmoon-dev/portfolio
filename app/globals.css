@@ -223,7 +223,9 @@ body {
 }
 
 h1 {
-  font-size: clamp(1.5rem, 6vw, 3.6rem);
+  /* Raised from 3.6rem: the name is the page's one focal point, and it has to
+     out-weigh everything around it by a clear step, not a nudge. */
+  font-size: clamp(2rem, 7vw, 4.75rem);
   font-weight: 500;
   /* Display type is optically sized, so it takes a ratio rather than module
      leading — a fixed step would wreck it across the clamp range. */
@@ -1326,4 +1328,283 @@ h1 {
   .progress::before {
     inset: -20px 0;
   }
+}
+
+
+/* ---------- Atmosphere, focal point and rhythm ----------
+
+   The page read as bland for three reasons, and each block below answers one:
+
+   1. No focal point. The hero was text in a box, so the eye had nowhere to
+      land first. It now carries the portrait and a much larger name, with a
+      pool of lamp-light behind it.
+   2. Flat colour. The oxblood and gilt only appeared on 12px labels. They now
+      show up at scale: the glow, the title accent words, the numerals.
+   3. No rhythm. Every section was the same template — kicker, title, a grid
+      of identical boxes. Each one now has a large numeral and its own card
+      treatment, so scrolling has beats instead of a repeat. */
+
+/* Grain — a fixed sheet of noise over everything. It is what makes the
+   flat fills read as paper and ink instead of CSS colour. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+:root[data-theme="dark"] body::after { opacity: 0.11; mix-blend-mode: overlay; }
+
+/* Lamp-light: oxblood low on the left, gilt high on the right, behind the
+   hero. The ruling fades out toward the centre so the plate floats. */
+.intro { position: relative; isolation: isolate; }
+.intro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 50% at 30% 62%, color-mix(in srgb, var(--lens-accent) 22%, transparent), transparent 70%),
+    radial-gradient(34% 44% at 74% 34%, color-mix(in srgb, var(--gold) 20%, transparent), transparent 70%);
+  filter: blur(24px);
+}
+
+/* Hero: text and portrait side by side once there is room. */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-7);
+  align-items: center;
+  max-width: 1056px; /* 66 modules */
+  padding: clamp(var(--sp-5), 4vw, var(--sp-7)) clamp(var(--sp-5), 6vw, var(--sp-8));
+}
+@media (min-width: 880px) {
+  .hero { grid-template-columns: minmax(0, 1fr) clamp(240px, 26vw, 304px); }
+}
+
+.hero-portrait {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 304px);
+  order: -1;
+}
+@media (min-width: 880px) { .hero-portrait { order: 0; } }
+/* Small on a phone, so the name still lands above the fold. */
+@media (max-width: 879px) { .hero-portrait { width: min(44vw, 176px); } }
+@media (max-width: 879px) { .portrait-tag { margin-top: var(--sp-3); } }
+
+/* An arch — the window of a reliquary — with a double gilt frame. */
+.portrait-arch {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 999px 999px 6px 6px;
+  overflow: hidden;
+  border: 1px solid var(--gold);
+  box-shadow:
+    0 0 0 6px var(--card),
+    0 0 0 7px var(--lead),
+    0 24px 48px -20px var(--shadow-lift),
+    0 0 64px -8px var(--lens-glow);
+  transform: rotate(1.5deg);
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.hero:hover .portrait-arch { transform: rotate(0deg) scale(1.015); }
+.portrait-arch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 40%;
+  display: block;
+  filter: sepia(0.18) saturate(0.95);
+}
+/* A warm wash so the illustration sits in the page's light, not its own. */
+.portrait-arch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, color-mix(in srgb, var(--highlight-bg) 35%, transparent));
+  mix-blend-mode: multiply;
+}
+
+.portrait-pin {
+  position: absolute;
+  top: 42%;
+  left: -18%;
+  width: 34%;
+  color: var(--ink);
+  transform: rotate(-18deg);
+  filter: drop-shadow(0 4px 6px var(--shadow));
+  animation: pin-flutter 5s ease-in-out infinite;
+  transform-origin: 50% 70%;
+}
+@keyframes pin-flutter {
+  0%, 100% { transform: rotate(-18deg) scaleX(1); }
+  6% { transform: rotate(-16deg) scaleX(0.82); }
+  12% { transform: rotate(-18deg) scaleX(1); }
+}
+
+.portrait-tag {
+  margin-top: var(--sp-5);
+  text-align: center;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+/* Title accents: the divider's word, picked out where it lands. */
+.title-accent {
+  font-style: normal;
+  color: var(--lens-accent);
+  background: linear-gradient(transparent 72%, color-mix(in srgb, var(--gold) 28%, transparent) 72% 90%, transparent 90%);
+  padding: 0 0.06em;
+}
+
+/* Section numerals — big, faint, gilt. Scale contrast the page lacked. */
+body { counter-reset: chapter; }
+.content-section { counter-increment: chapter; overflow: hidden; }
+.content-section::before {
+  content: counter(chapter, upper-roman);
+  position: absolute;
+  top: clamp(var(--sp-4), 3vw, var(--sp-6));
+  right: clamp(var(--sp-4), 6vw, var(--sp-9));
+  font-family: var(--script);
+  font-size: clamp(7rem, 18vw, 15rem);
+  line-height: 0.8;
+  color: var(--gold);
+  opacity: 0.16;
+  pointer-events: none;
+  z-index: -1;
+}
+.content-section > .wrap { position: relative; }
+.section-kicker { background: var(--card); }
+.section-kicker::before {
+  content: "No. " counter(chapter, decimal-leading-zero) " \00B7  ";
+  color: var(--soft);
+}
+
+/* Shared card lift: a rim of light on hover instead of a 2px nudge. */
+.game-card,
+.watch-card {
+  background: linear-gradient(160deg, var(--plate), var(--card) 60%);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.game-card:hover,
+.watch-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--lens-accent);
+  box-shadow: 0 18px 32px -18px var(--shadow-lift), 0 0 0 1px var(--lens-accent), 0 0 32px -12px var(--lens-glow);
+}
+
+/* Cosplay: one feature frame, the rest as a contact sheet around it. */
+@media (min-width: 720px) {
+  /* Three columns with a 2x2 feature: six frames fill a clean 3x3. */
+  .cosplay-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-flow: dense; }
+  .cosplay-grid > :first-child { grid-column: span 2; grid-row: span 2; }
+  /* The stagger wraps each card in a div, so the stretch has to be passed
+     down through it before the feature photo can fill both rows. */
+  .cosplay-grid > :first-child,
+  .cosplay-grid > :first-child .cosplay-card { display: flex; flex-direction: column; height: 100%; }
+  .cosplay-grid > :first-child .cosplay-card { flex: 1 1 auto; }
+  .cosplay-grid > :first-child .cosplay-photo { aspect-ratio: auto; flex: 1 1 auto; min-height: 320px; }
+}
+.cosplay-photo {
+  position: relative;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.cosplay-card:hover .cosplay-photo {
+  transform: translateY(-4px) rotate(-0.6deg);
+  box-shadow: 0 18px 32px -18px var(--shadow-lift);
+}
+.cosplay-photo.is-empty {
+  flex-direction: column;
+  gap: var(--sp-3);
+  border: 1px solid var(--border);
+  background:
+    repeating-linear-gradient(135deg, var(--laid) 0 1px, transparent 1px 8px),
+    radial-gradient(80% 60% at 50% 40%, color-mix(in srgb, var(--lens-accent) 10%, transparent), transparent),
+    var(--card);
+}
+/* Corner brackets, as on a photo-album mount. */
+.cosplay-photo.is-empty::before,
+.cosplay-photo.is-empty::after {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--gold);
+  opacity: 0.7;
+}
+.cosplay-photo.is-empty::before { top: var(--sp-2); left: var(--sp-2); border-right: 0; border-bottom: 0; }
+.cosplay-photo.is-empty::after { bottom: var(--sp-2); right: var(--sp-2); border-left: 0; border-top: 0; }
+.cosplay-moth { width: 40%; max-width: 96px; color: var(--ink); opacity: 0.18; transition: opacity 0.35s ease, transform 0.35s ease; }
+.cosplay-card:hover .cosplay-moth { opacity: 0.4; transform: translateY(-4px); }
+
+/* Games: each shelf gets its own spine colour, so the three groups read as
+   three states rather than one list cut in three. */
+.games-group { --spine: var(--lead); }
+.games-group.is-now { --spine: var(--lens-accent); }
+.games-group.is-loop { --spine: var(--gold); }
+.game-card { border-left: 4px solid var(--spine); }
+.games-group-label { display: flex; align-items: center; gap: var(--sp-2); }
+.games-group-label::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--spine);
+}
+.games-group.is-now .games-group-label::before { animation: status-pulse 1.6s ease-in-out infinite; }
+
+/* Watching: a gilt head rule and a large opening quote mark. */
+.watch-card { position: relative; overflow: hidden; border-top: 3px solid var(--gold); }
+.watch-card::after {
+  content: "\201C";
+  position: absolute;
+  right: var(--sp-4);
+  bottom: calc(var(--sp-4) * -1);
+  font-family: var(--script);
+  font-size: 8rem;
+  line-height: 1;
+  color: var(--lens-accent);
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+/* Journal: a thread down the left with a knot at each entry. */
+.journal-list { position: relative; padding-left: var(--sp-6); }
+.journal-list::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(var(--lens-accent), var(--gold) 60%, transparent);
+}
+.journal-entry { position: relative; border-top: none; }
+.journal-entry::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--sp-6) * -1 + 3px);
+  top: calc(var(--sp-5) + 4px);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--lens-accent);
+}
+.journal-entry:first-child::before { top: 4px; background: var(--lens-accent); }
+.journal-title { font-size: 1.3rem; letter-spacing: -0.01em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait-pin,
+  .games-group.is-now .games-group-label::before { animation: none; }
+  .portrait-arch,
+  .cosplay-photo,
+  .cosplay-moth { transition: none; }
 }

@@ -8,7 +8,7 @@ export function WatchList() {
           Told to me
         </Reveal>
         <Reveal as="h2" className="section-title" delayMs={60}>
-          Stories I&rsquo;m always one night behind on.
+          Stories I&rsquo;ve <em className="title-accent">witnessed</em>, always one night behind.
         </Reveal>
 
         <div className="watch-grid">
