@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/Reveal";
 import { RevealStagger } from "@/components/RevealStagger";
+import { MOTH_VIEWBOX, MothPaths } from "@/components/MothShape";
 
 type Photo = { label: string; caption: string; src?: string };
 
@@ -22,7 +23,7 @@ export function CosplayGallery() {
           Borrowed skins
         </Reveal>
         <Reveal as="h2" className="section-title" delayMs={60}>
-          Shapes I&rsquo;ve worn, and the ones still half-made.
+          Shapes I&rsquo;ve <em className="title-accent">worn</em>, and the ones still half-made.
         </Reveal>
         <Reveal as="p" className="page-lead" delayMs={100}>
           Patterning, foam, paint, and whatever it takes to hold a borrowed shape together for
@@ -32,12 +33,17 @@ export function CosplayGallery() {
         <RevealStagger className="cosplay-grid" stepMs={50}>
           {PHOTOS.map((p) => (
             <div className="cosplay-card" key={p.label}>
-              <div className="cosplay-photo">
+              <div className={`cosplay-photo ${p.src ? "" : "is-empty"}`}>
                 {p.src ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={p.src} alt={p.caption} />
                 ) : (
-                  p.label
+                  <>
+                    <svg className="cosplay-moth" viewBox={MOTH_VIEWBOX} fill="currentColor" aria-hidden="true">
+                      <MothPaths antennae />
+                    </svg>
+                    <span>{p.label}</span>
+                  </>
                 )}
               </div>
               <p className="cosplay-caption">{p.caption}</p>

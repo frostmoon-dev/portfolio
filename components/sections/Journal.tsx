@@ -41,7 +41,7 @@ export function Journal() {
           The chronicle
         </Reveal>
         <Reveal as="h2" className="section-title" delayMs={60}>
-          Entries kept mostly for myself, against forgetting.
+          Entries <em className="title-accent">written</em> mostly for myself, against forgetting.
         </Reveal>
 
         <div className="journal-list">

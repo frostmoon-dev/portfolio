@@ -9,6 +9,7 @@ import { Journal } from "@/components/sections/Journal";
 import { Playground } from "@/components/Playground";
 import { Footer } from "@/components/Footer";
 import { Moths } from "@/components/Moths";
+import { HeroPortrait } from "@/components/HeroPortrait";
 
 export default function Home() {
   return (
@@ -17,9 +18,12 @@ export default function Home() {
       <div className="wrap">
         <section id="top" className="intro">
           <div className="hero">
-            <NameSwap />
-            <Socials />
-            <LensBio />
+            <div className="hero-text">
+              <NameSwap />
+              <Socials />
+              <LensBio />
+            </div>
+            <HeroPortrait />
           </div>
         </section>
       </div>
